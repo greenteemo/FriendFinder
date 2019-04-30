@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="space_color">#eeeeee</color>
+    <color name="pressed">#dfa4a4</color>
+    <color name="released">#ffff</color>
+
+    <color name="home_bar">#5D4037</color>
+    <color name="search_bar">#d78706</color>
+    <color name="my_bar">#36881B</color>
+
+    <color name="grid_text">#332f0c</color>
+</resources>

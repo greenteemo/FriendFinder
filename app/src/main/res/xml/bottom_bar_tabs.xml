@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/menu_home"
+        icon="@mipmap/home"
+        title="home"
+        barColorWhenSelected="@color/home_bar"/>
+
+    <tab
+        id="@+id/menu_search"
+        icon="@mipmap/search"
+        title="search"
+        barColorWhenSelected="@color/search_bar"/>
+
+    <tab
+        id="@+id/menu_my"
+        icon="@mipmap/my"
+        title="my"
+        barColorWhenSelected="@color/my_bar"/>
+</tabs>

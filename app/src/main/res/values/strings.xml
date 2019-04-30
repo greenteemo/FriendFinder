@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FriendFinder</string>
+
+
+
+    <string name="content_home">this is home fragment</string>
+    <string name="content_search">this is search fragment</string>
+    <string name="content_my">this is my fragment</string>
+</resources>

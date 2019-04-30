@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="65dp"
+    -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".View.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="FriendFinder">
+
+        </android.support.v7.widget.Toolbar>
+        <FrameLayout
+            android:id="@+id/frame_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <com.roughike.bottombar.BottomBar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/bottom_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        app:bb_behavior="shifting"
+        app:bb_tabXmlResource="@xml/bottom_bar_tabs"
+        />
+
+
+</LinearLayout>
