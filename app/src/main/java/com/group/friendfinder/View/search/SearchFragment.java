@@ -1,4 +1,4 @@
-package com.group.friendfinder.View.Search;
+package com.group.friendfinder.View.search;
 
 import android.view.View;
 

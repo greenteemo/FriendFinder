@@ -9,10 +9,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.group.friendfinder.Base.BaseFragment;
-import com.group.friendfinder.Base.BaseFragmentActivity;
 
 import com.group.friendfinder.R;
-import com.group.friendfinder.View.Search.SearchFragment;
+import com.group.friendfinder.View.search.SearchFragment;
 import com.group.friendfinder.View.home.HomeFragment;
 import com.group.friendfinder.View.my.MyFragment;
 
