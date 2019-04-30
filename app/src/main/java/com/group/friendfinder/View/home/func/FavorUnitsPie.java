@@ -5,7 +5,7 @@
      should be shown on the chart.
  */
 
-package com.group.friendfinder.View;
+package com.group.friendfinder.View.home.func;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import java.util.List;
 
 import android.support.v7.app.AppCompatActivity;
 import com.group.friendfinder.R;
+import com.group.friendfinder.View.RestClient;
 
 public class FavorUnitsPie extends AppCompatActivity {
 

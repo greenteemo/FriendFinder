@@ -4,18 +4,12 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.group.friendfinder.Base.BaseLazyLoadFragment;
 import com.group.friendfinder.R;
-import com.group.friendfinder.View.FavorUnitsPie;
+import com.group.friendfinder.View.home.func.FavorUnitsPie;
 import com.group.friendfinder.View.home.func.exampleActivity;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class HomeFragment extends BaseLazyLoadFragment{
     private GridView gridView;
