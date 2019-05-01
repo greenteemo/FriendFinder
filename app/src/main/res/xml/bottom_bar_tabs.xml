@@ -3,18 +3,18 @@
     <tab
         id="@+id/menu_home"
         icon="@mipmap/home"
-        title="home"
+        title="Home"
         barColorWhenSelected="@color/home_bar"/>
 
     <tab
         id="@+id/menu_search"
         icon="@mipmap/search"
-        title="search"
+        title="Search"
         barColorWhenSelected="@color/search_bar"/>
 
     <tab
         id="@+id/menu_my"
         icon="@mipmap/my"
-        title="my"
+        title="My"
         barColorWhenSelected="@color/my_bar"/>
 </tabs>
