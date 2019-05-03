@@ -1,0 +1,12 @@
+<resources>
+    <string-array name="search_edit_gender">
+        <item>whatever</item>
+        <item>male </item>
+        <item>female</item>
+    </string-array>
+    <string-array name="search_edit_study_mode">
+        <item>whatever</item>
+        <item>full_time </item>
+        <item>part_time</item>
+    </string-array>
+</resources>

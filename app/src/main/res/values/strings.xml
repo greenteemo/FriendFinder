@@ -3,7 +3,23 @@
 
 
     <string name="content_home">this is home fragment</string>
-    <string name="content_search">this is search fragment</string>
+    <string name="content_search">Search for new friends</string>
     <string name="content_my">this is my fragment</string>
 
+    <string name="search_first_name">First Name</string>
+    <string name="search_surname">Surname</string>
+    <string name="search_birthday">Birthday</string>
+    <string name="search_gender">Gender</string>
+    <string name="search_course">Course</string>
+    <string name="search_study_mode">Study Mode</string>
+    <string name="search_address">Address</string>
+    <string name="search_suburb">Suburb</string>
+    <string name="search_nationality">Nationality</string>
+    <string name="search_native_language">Native Language</string>
+    <string name="search_favourite_sport">Favourite Sport</string>
+    <string name="search_favourite_movie">Favourite Movie</string>
+    <string name="search_favourite_unit">Favourite Unit</string>
+    <string name="search_current_job">Current Job</string>
+    <string name="search_whatever">whatever</string>
+    <string name="search_search">search!</string>
 </resources>
