@@ -35,11 +35,18 @@
                 android:value=".View.MainActivity"/>
         </activity>
 
-        <activity android:name=".View.home.func.LocationBarChart"
+        <activity android:name=".View.home.func.ChooseDate"
             android:parentActivityName=".View.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.MainActivity"/>
+        </activity>
+
+        <activity android:name=".View.home.func.LocationBarChart"
+            android:parentActivityName=".View.home.func.ChooseDate">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".View.home.func.ChooseDate"/>
         </activity>
 
     </application>

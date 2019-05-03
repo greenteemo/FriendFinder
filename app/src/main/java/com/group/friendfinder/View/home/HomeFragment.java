@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.group.friendfinder.Base.BaseLazyLoadFragment;
 import com.group.friendfinder.R;
+import com.group.friendfinder.View.home.func.ChooseDate;
 import com.group.friendfinder.View.home.func.FavorUnitsPie;
 import com.group.friendfinder.View.home.func.LocationBarChart;
 import com.group.friendfinder.View.home.func.exampleActivity;
@@ -68,7 +69,7 @@ public class HomeFragment extends BaseLazyLoadFragment{
                         startActivity(intent4);
                         break;
                     case 5:
-                        Intent intent5 = new Intent(getActivity(), LocationBarChart.class);
+                        Intent intent5 = new Intent(getActivity(), ChooseDate.class);
                         startActivity(intent5);
                         break;
                 }
