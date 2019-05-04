@@ -93,10 +93,11 @@ public class FavorUnitsPie extends AppCompatActivity {
             pieChart.setEntryLabelTextSize(13);
 
             // description
-            Description desc = new Description();
-            desc.setText("Favorite Units of Students");
-            desc.setTextSize(14f);
-            pieChart.setDescription(desc);
+//            Description desc = new Description();
+//            desc.setText("Favorite Units of Students");
+//            desc.setTextSize(14f);
+//            pieChart.setDescription(desc);
+            pieChart.getDescription().setEnabled(false);
 
             // change format
             pieChart.setHoleRadius(25f);
@@ -123,8 +124,8 @@ public class FavorUnitsPie extends AppCompatActivity {
 
             // customize legends
             Legend l = pieChart.getLegend();
-            l.setOrientation(Legend.LegendOrientation.VERTICAL);
-            l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+            l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+            l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
             l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
             l.setYEntrySpace(1);
             l.setTextSize(13);

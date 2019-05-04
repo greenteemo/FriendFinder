@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Please choose start date:"/>
+            android:text="Please choose the start date:"/>
 
         <DatePicker
             android:id="@+id/datePickerStart"
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Please choose end date:"/>
+            android:text="Please choose the end date:"/>
 
 K
         <DatePicker

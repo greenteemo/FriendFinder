@@ -49,6 +49,13 @@
                 android:value=".View.home.func.ChooseDate"/>
         </activity>
 
+        <activity android:name=".View.home.func.GetMovieInfo"
+            android:parentActivityName=".View.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".View.MainActivity"/>
+        </activity>
+
     </application>
 
 </manifest>

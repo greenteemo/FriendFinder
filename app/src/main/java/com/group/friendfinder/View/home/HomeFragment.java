@@ -10,6 +10,7 @@ import com.group.friendfinder.Base.BaseLazyLoadFragment;
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.home.func.ChooseDate;
 import com.group.friendfinder.View.home.func.FavorUnitsPie;
+import com.group.friendfinder.View.home.func.GetMovieInfo;
 import com.group.friendfinder.View.home.func.LocationBarChart;
 import com.group.friendfinder.View.home.func.exampleActivity;
 
@@ -60,9 +61,9 @@ public class HomeFragment extends BaseLazyLoadFragment{
                         Toast.makeText(getContext(), "to function2_Activity",Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-//                        Intent intent = new Intent(getActivity(), function3_Activity().class);
-//                        startActivity(intent);
-                        Toast.makeText(getContext(), "to function3_Activity",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), GetMovieInfo.class);
+                        startActivity(intent);
+//                        Toast.makeText(getContext(), "to function3_Activity",Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
                         Intent intent4 = new Intent(getActivity(), FavorUnitsPie.class);
