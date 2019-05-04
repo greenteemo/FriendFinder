@@ -1,6 +1,7 @@
 package com.group.friendfinder.View.home.func;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.group.friendfinder.R;
+import com.group.friendfinder.View.RestClient;
 
 public class ChooseDate extends AppCompatActivity{
 
@@ -43,6 +45,8 @@ public class ChooseDate extends AppCompatActivity{
         monthEnd = datePickerEnd.getMonth()+1;
         yearEnd = datePickerEnd.getYear();
 
+//        new movieAsync().execute("Avenger");
+
         if(yearStart * 10000 + monthStart * 100 + dayStart > yearEnd * 10000 + monthEnd * 100 + dayEnd){
             Toast.makeText(ChooseDate.this,
                     "Start time is more than End time, please pick correct time.", Toast.LENGTH_SHORT).show();
@@ -56,4 +60,17 @@ public class ChooseDate extends AppCompatActivity{
             startActivity(intent);
         }
     }
+
+//    private class movieAsync extends AsyncTask<String, Void, String> {
+//
+//        protected String doInBackground(String... params) {
+//            return RestClient.getMovie(params[0]);
+//        }
+//
+//        /** The system calls this to perform work in the UI thread and delivers
+//         * the result from doInBackground() */
+//        protected void onPostExecute(String ret) {
+//            System.out.println(ret);
+//        }
+//    }
 }
