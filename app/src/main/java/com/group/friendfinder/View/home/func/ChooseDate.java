@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -45,7 +44,7 @@ public class ChooseDate extends AppCompatActivity{
         monthEnd = datePickerEnd.getMonth()+1;
         yearEnd = datePickerEnd.getYear();
 
-//        new movieAsync().execute("Avenger");
+//        new getStudentsByKeyAsync().execute(30074000, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0);
 
         if(yearStart * 10000 + monthStart * 100 + dayStart > yearEnd * 10000 + monthEnd * 100 + dayEnd){
             Toast.makeText(ChooseDate.this,
@@ -65,6 +64,19 @@ public class ChooseDate extends AppCompatActivity{
 //
 //        protected String doInBackground(String... params) {
 //            return RestClient.getMovie(params[0]);
+//        }
+//
+//        /** The system calls this to perform work in the UI thread and delivers
+//         * the result from doInBackground() */
+//        protected void onPostExecute(String ret) {
+//            System.out.println(ret);
+//        }
+//    }
+
+//    private class getStudentsByKeyAsync extends AsyncTask<Integer, Void, String> {
+//
+//        protected String doInBackground(Integer... params) {
+//            return RestClient.getStudentsByKeys(params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8], params[9], params[10], params[11], params[12], params[13], params[14], params[15], params[16], params[17], params[18]);
 //        }
 //
 //        /** The system calls this to perform work in the UI thread and delivers
