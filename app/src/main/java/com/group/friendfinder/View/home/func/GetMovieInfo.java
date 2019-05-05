@@ -1,22 +1,15 @@
 package com.group.friendfinder.View.home.func;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.group.friendfinder.R;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,65 +17,48 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class GetMovieInfo extends AppCompatActivity {
-    Button visitWebBtn = null;
-    Button downImgBtn = null;
-    TextView showTextView = null;
-    ImageView showImageView = null;
-    String resultStr = "";
-    ProgressBar progressBar = null;
-    ViewGroup viewGroup = null;
+    private String movieTitle = "";
+    private String webRes = "";
+    private String moviePlot = "";
+    private String moviePosterURL = "";
+    private String movieGenre = "";
+    private String movieReleased = "";
+    private String movieRuntime = "";
+    private String movieCountry = "";
+    private String movieLanguage = "";
+    private String movieRating = "";
+    private String imdbVotes = "";
+    private RatingBar ratingBar;
+    private TextView ratingTextView;
+    private TextView votesTextView;
+    private TextView movieTitleTextView;
+    private TextView moviePlotTextView;
+    private TextView movieBriefTextView;
+    private ImageView movieImg;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_detail);
-        initUI();
-        visitWebBtn.setOnClickListener(new View.OnClickListener() {
+//        movieTitle = "The Avengers";
+        movieTitle = "Game of Thrones";
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                showImageView.setVisibility(View.GONE);
-                showTextView.setVisibility(View.VISIBLE);
-                Thread visitBaiduThread = new Thread(new VisitWebRunnable());
-                visitBaiduThread.start();
-                try {
-                    visitBaiduThread.join();
-                    if(!resultStr.equals("")){
-                        showTextView.setText(resultStr);
-                    }
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        });
-        downImgBtn.setOnClickListener(new View.OnClickListener() {
+        ratingBar = findViewById(R.id.ratingBar);
+        ratingTextView = findViewById(R.id.ratingTextView);
+        votesTextView = findViewById(R.id.votesTextView);
+        moviePlotTextView = findViewById(R.id.moviePlotTextView);
+        movieTitleTextView = findViewById(R.id.movieTitleTextView);
+        movieBriefTextView = findViewById(R.id.movieBriefTextView);
+        movieImg = findViewById(R.id.movieImg);
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                showImageView.setVisibility(View.VISIBLE);
-                showTextView.setVisibility(View.GONE);
-                String imgUrl = "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY1200_CR90,0,630,1200_AL_.jpg";
-                new DownImgAsyncTask().execute(imgUrl);
-            }
-        });
+        new getWebAsyncTask().execute("http://www.omdbapi.com/?apikey=7c1f6129&t=" + movieTitle);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
-    public void initUI(){
-        showTextView = findViewById(R.id.textview_show);
-        showImageView = findViewById(R.id.imagview_show);
-        downImgBtn = findViewById(R.id.btn_download_img);
-        visitWebBtn = findViewById(R.id.btn_visit_web);
-    }
     /**
      * 获取指定URL的响应字符串
      * @param urlString
@@ -154,16 +130,77 @@ public class GetMovieInfo extends AppCompatActivity {
         }
         return bitmap;
     }
-    class VisitWebRunnable implements Runnable{
 
-        @Override
-        public void run() {
-            // TODO Auto-generated method stub
-            String data = getURLResponse("https://www.googleapis.com/customsearch/v1?key=AIzaSyAMoB0LYGyXSFcuNxISWHEOJGdMTQb-HVk&cx=016750410111980342498:qkhodgxfizq&q=Avenger&num=1");
-            resultStr = data;
+    class getWebAsyncTask extends AsyncTask<String, Void, String>{
+        protected String doInBackground(String... params) {
+            return getURLResponse(params[0]);
         }
 
+        /** The system calls this to perform work in the UI thread and delivers
+         * the result from doInBackground() */
+        protected void onPostExecute(String ret) {
+            webRes = ret;
+
+            String patternTitle = "\"Title\":\"(.*?)\"";
+            String patternPlot = "\"Plot\":\"(.*?)\"";
+            String patternPoster = "\"Poster\":\"(.*?)\"";
+            String patternGenre = "\"Genre\":\"(.*?)\"";
+            String patternReleased = "\"Released\":\"(.*?)\"";
+            String patternRuntime = "\"Runtime\":\"(.*?)\"";
+            String patternCountry = "\"Country\":\"(.*?)\"";
+            String patternLanguage = "\"Language\":\"(.*?)\"";
+            String patternRating = "\"imdbRating\":\"(.*?)\"";
+            String patternVotes = "\"imdbVotes\":\"(.*?)\"";
+
+
+            // Create a Pattern object
+            Pattern rTitle = Pattern.compile(patternTitle);
+            Pattern rPlot = Pattern.compile(patternPlot);
+            Pattern rPoster = Pattern.compile(patternPoster);
+            Pattern rGenre = Pattern.compile(patternGenre);
+            Pattern rReleased = Pattern.compile(patternReleased);
+            Pattern rRuntime = Pattern.compile(patternRuntime);
+            Pattern rCountry = Pattern.compile(patternCountry);
+            Pattern rLanguage = Pattern.compile(patternLanguage);
+            Pattern rRating = Pattern.compile(patternRating);
+            Pattern rVotes = Pattern.compile(patternVotes);
+
+            // Now create matcher object.
+            Matcher mTitle = rTitle.matcher(webRes);
+            Matcher mPlot = rPlot.matcher(webRes);
+            Matcher mPoster = rPoster.matcher(webRes);
+            Matcher mGenre = rGenre.matcher(webRes);
+            Matcher mReleased = rReleased.matcher(webRes);
+            Matcher mRuntime = rRuntime.matcher(webRes);
+            Matcher mCountry = rCountry.matcher(webRes);
+            Matcher mLanguage = rLanguage.matcher(webRes);
+            Matcher mRating = rRating.matcher(webRes);
+            Matcher mVotes = rVotes.matcher(webRes);
+            if(mVotes.find() && mTitle.find() && mPlot.find() && mPoster.find() && mGenre.find() && mReleased.find() && mRuntime.find() && mCountry.find() && mLanguage.find() && mRating.find()){
+                movieTitle = mTitle.group(1);
+                moviePlot = mPlot.group(1);
+                moviePosterURL = mPoster.group(1);
+                movieGenre = mGenre.group(1);
+                movieReleased = mReleased.group(1);
+                movieRuntime = mRuntime.group(1);
+                movieCountry = mCountry.group(1);
+                movieLanguage = mLanguage.group(1);
+                movieRating = mRating.group(1);
+                imdbVotes = mVotes.group(1);
+            }
+
+            new DownImgAsyncTask().execute(moviePosterURL);
+            movieTitleTextView.setText(movieTitle);
+            moviePlotTextView.setText(moviePlot);
+            movieBriefTextView.setText("Genre: " + movieGenre + "\nReleased: " + movieReleased + "\nRuntime: " + movieRuntime + "\nCountry: " + movieCountry + "\nLanguage: " + movieLanguage);
+            ratingTextView.setText(movieRating);
+            votesTextView.setText(imdbVotes + " votes");
+            ratingBar.setRating(Float.parseFloat(movieRating) / 2);
+
+            System.out.println(ret);
+        }
     }
+
     class DownImgAsyncTask extends AsyncTask<String, Void, Bitmap> {
 
 
@@ -171,9 +208,6 @@ public class GetMovieInfo extends AppCompatActivity {
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
-            showImageView.setImageBitmap(null);
-            showProgressBar();//显示进度条提示框
-
         }
 
         @Override
@@ -188,37 +222,9 @@ public class GetMovieInfo extends AppCompatActivity {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
             if(result!=null){
-                dismissProgressBar();
-                showImageView.setImageBitmap(result);
+                movieImg.setImageBitmap(result);
             }
         }
 
-
-
     }
-    /**
-     * 在母布局中间显示进度条
-     */
-    private void showProgressBar(){
-        progressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleLarge);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT,  RelativeLayout.TRUE);
-        progressBar.setVisibility(View.VISIBLE);
-        Context context = getApplicationContext();
-        viewGroup = (ViewGroup)findViewById(R.id.parent_view);
-        //		MainActivity.this.addContentView(progressBar, params);
-        viewGroup.addView(progressBar, params);
-    }
-    /**
-     * 隐藏进度条
-     */
-    private void dismissProgressBar(){
-        if(progressBar != null){
-            progressBar.setVisibility(View.GONE);
-            viewGroup.removeView(progressBar);
-            progressBar = null;
-        }
-    }
-
 }
