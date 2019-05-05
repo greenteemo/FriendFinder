@@ -37,6 +37,7 @@ import java.util.regex.Pattern;
 public class SearchResult extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private Button mbtn1;
     private String NewFriends;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,11 +45,20 @@ public class SearchResult extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
 
         toolbar = findViewById(R.id.toolbar);
+        mbtn1 = findViewById(R.id.search_result_botton);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         new SearchNewFriendsAsync(intent.getIntArrayExtra("attributes")).execute();
+
+        mbtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchResult.this, ShowMap.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private class SearchNewFriendsAsync extends AsyncTask<Integer, Void, String> {

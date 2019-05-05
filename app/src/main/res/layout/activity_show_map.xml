@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.search.SearchResult">
-
+    tools:context=".View.search.ShowMap">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,14 +21,14 @@
             android:theme="@style/AppTheme.AppBarOverlay"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <GridView
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:numColumns="auto_fit" />
+            android:clickable="true" />
 
         <Button
-            android:id="@+id/search_result_botton"
+            android:id="@+id/back_botton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_weight="0"
