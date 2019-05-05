@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.group.friendfinder.Base.Login">
+    tools:context="com.group.friendfinder.Base.BaseLogin">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -104,7 +104,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
         <TextView
-            android:id="@+id/sound_help"
+            android:id="@+id/sound_help1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
@@ -130,17 +130,22 @@
             android:gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/topbg3">
+            android:background="@drawable/topbg3"
+            >
 
-            <TextView
-                android:id="@+id/sound_help"
+            <Button
+                android:id="@+id/sub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dip"
+                android:layout_marginStart="5dip"
                 android:layout_marginTop="25dip"
+                android:background="#e8e8e8"
+                android:stateListAnimator="@null"
                 android:text="Subscription"
-                android:textColor="#29981A" />
-            <TextView
+                android:textColor="#29981A"
+                />
+
+            <Button
                 android:id="@+id/sound_help"
 
                 android:layout_width="wrap_content"
@@ -148,7 +153,10 @@
                 android:layout_marginStart="15dip"
                 android:layout_marginTop="25dip"
                 android:text="Facebook_Log"
+                android:stateListAnimator="@null"
+                android:background="#e8e8e8"
                 android:textColor="#29981A" />
+
 
         </LinearLayout>
 

@@ -13,13 +13,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".View.my.EditProfile"></activity>
-        <activity android:name=".View.MainActivity">
+        <activity android:name=".Base.BaseStart">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".View.MainActivity"></activity>
         <activity
             android:name=".View.home.func.exampleActivity"
             android:parentActivityName=".View.MainActivity">

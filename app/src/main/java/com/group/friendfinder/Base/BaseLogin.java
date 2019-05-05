@@ -1,6 +1,6 @@
 package com.group.friendfinder.Base;
 
-
+import android.content.Intent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,10 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.group.friendfinder.R;
-
-public class Login extends Activity {
-
-    Button bnlogin, bncancel;  //
+public class BaseLogin extends Activity{
+    Button bnlogin, bnsub;  //
     EditText etaccount, etpwd;
     TextView etsound_help,etsound_facebook;
 
@@ -57,12 +55,12 @@ public class Login extends Activity {
         etpwd = (EditText) findViewById(R.id.pwdEdittext);
 //获取按钮
         bnlogin = (Button) findViewById(R.id.resetpwd_btn_sure);
-        bncancel = (Button) findViewById(R.id.sound_help);
+        bnsub = (Button) findViewById(R.id.sub);
 
         etsound_help.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(Login.this, "The business has not been opened yet.",Toast.LENGTH_LONG ).show();
+                Toast.makeText(BaseLogin.this, "The business has not been opened yet.",Toast.LENGTH_LONG ).show();
             }
         });
 
@@ -73,7 +71,7 @@ public class Login extends Activity {
                 String pwd=etpwd.getText().toString();
                 if(username.length()<1||pwd.length()<1)
                 {
-                    Toast.makeText(Login.this, "请输入用户名或密码",Toast.LENGTH_LONG ).show();
+                    Toast.makeText(BaseLogin.this, "请输入用户名或密码",Toast.LENGTH_LONG ).show();
                 }
                 else {
                     /**
@@ -104,46 +102,13 @@ public class Login extends Activity {
 
             }
         });
-        bncancel.setOnClickListener(new View.OnClickListener()
+        bnsub.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v) {
-                final String username=etaccount.getText().toString();
-                final String pwd=etpwd.getText().toString();
-                if(username.length()<1||pwd.length()<1)
-                {
-                    Toast.makeText(Login.this, "请输入用户名或密码",Toast.LENGTH_LONG ).show();
-                }
-                else {
-                    // 对本地信息操作，新建用户对象实例
-                    // 设置用户名
-                    // 设置密码
-                    //服务端校验，反馈{
-                    //@Override
-                    //校验函数{
-                    //if (e == null) {信息不为空
-                    /**
-                     *Person i= new Person(etaccount.getText().toString());
-                     *Bundle data=new Bundle();
-                     *data.putSerializable("id",i);
-
-                     *构建对象
-                     *设置名称
-                     *设置
-                     *保存到服务端
-
-                     *Toast.makeText(Login.this, "注册成功，用户："+username+"，欢迎进入HopeBank",Toast.LENGTH_LONG ).show();
-                     *Intent intent = new Intent(Login.this, MainActivity.class);
-                     *intent.putExtras(data);
-                     *startActivity(intent);
-                     *finish();
-                     */
-                    //} else {
-                    // Toast.makeText(Login.this, "注册失败，账号：“"+username+"”已被注册，请重新注册",Toast.LENGTH_LONG ).show();
-                    // }
-                    // }
-                    // });
-                }
+                Intent intent = new Intent(BaseLogin.this, BaseActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -151,5 +116,4 @@ public class Login extends Activity {
 
 
     }
-
 }
