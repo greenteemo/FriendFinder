@@ -7,10 +7,10 @@
     <color name="white">#FFFFFF</color>
     <color name="space_color">#eeeeee</color>
     <color name="pressed">#dfa4a4</color>
-    <color name="released">#ffff</color>
+    <color name="released">#FFFFFF</color>
 
     <color name="home_bar">#5D4037</color>
-    <color name="search_bar">#d78706</color>
+    <color name="search_bar">#D78706</color>
     <color name="my_bar">#36881B</color>
 
     <color name="grid_text">#332F0C</color>

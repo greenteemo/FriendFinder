@@ -5,13 +5,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".View.my.EditProfile"></activity>
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,43 +20,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".View.home.func.exampleActivity"
+        <activity
+            android:name=".View.home.func.exampleActivity"
             android:parentActivityName=".View.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MainActivity"/>
-
+                android:value=".View.MainActivity" />
         </activity>
-
-        <activity android:name=".View.home.func.FavorUnitsPie"
+        <activity
+            android:name=".View.home.func.FavorUnitsPie"
             android:parentActivityName=".View.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MainActivity"/>
+                android:value=".View.MainActivity" />
         </activity>
-
-        <activity android:name=".View.home.func.ChooseDate"
+        <activity
+            android:name=".View.home.func.ChooseDate"
             android:parentActivityName=".View.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MainActivity"/>
+                android:value=".View.MainActivity" />
         </activity>
-
-        <activity android:name=".View.home.func.LocationBarChart"
+        <activity
+            android:name=".View.home.func.LocationBarChart"
             android:parentActivityName=".View.home.func.ChooseDate">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.home.func.ChooseDate"/>
+                android:value=".View.home.func.ChooseDate" />
         </activity>
-
-        <activity android:name=".View.home.func.GetMovieInfo"
-            android:parentActivityName=".View.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".View.MainActivity"/>
-        </activity>
-
     </application>
 
 </manifest>

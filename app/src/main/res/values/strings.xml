@@ -3,7 +3,7 @@
 
 
     <string name="content_home">this is home fragment</string>
-    <string name="content_search">Search for new friends</string>
+    <string name="content_search"> Search for new friends</string>
     <string name="content_my">this is my fragment</string>
 
     <string name="search_first_name">First Name</string>
@@ -22,4 +22,9 @@
     <string name="search_current_job">Current Job</string>
     <string name="search_whatever">whatever</string>
     <string name="search_search">search!</string>
+    <string name="search_hint"> select multiple matching attributes and view a list of other students who meet these criteria with their information </string>
+
+    <string name="profile_change">change</string>
+    
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
