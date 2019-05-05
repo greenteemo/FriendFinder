@@ -29,4 +29,11 @@
     <string name="search_result_button">change</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="forget_pwd">Forget Password？</string>
+    <string name="account">ID:</string>
+    <string name="pwd">Psw</string>
+    <string name="reset">修改密码</string>
+    <string name="exit">安全退出</string>
+    <string name="accountEdittext">ID/Email/Phone number</string>
 </resources>
