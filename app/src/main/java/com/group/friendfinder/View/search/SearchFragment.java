@@ -91,6 +91,7 @@ public class SearchFragment extends BaseLazyLoadFragment{
                     Toast.makeText(getContext(), "you have to select one attribute at least",Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(getActivity(), SearchResult.class);
+                    intent.putExtra("attributes",attributes);
                     startActivity(intent);
                 }
             }
