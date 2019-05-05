@@ -48,6 +48,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.home.func.ChooseDate" />
         </activity>
+        <activity
+            android:name=".View.search.SearchResult"
+            android:parentActivityName=".View.search.SearchResult">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".View.search.SearchResult" />
+        </activity>
     </application>
 
 </manifest>
