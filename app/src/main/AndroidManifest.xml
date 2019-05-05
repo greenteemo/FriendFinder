@@ -54,6 +54,14 @@
             android:name=".View.home.func.GetMovieInfo">
 
         </activity>
+        <activity
+            android:name=".Base.BaseLogin">
+
+        </activity>
+        <activity
+            android:name=".Base.BaseSub">
+
+        </activity>
     </application>
 
 </manifest>
