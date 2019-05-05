@@ -56,6 +56,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.search.SearchResult" />
         </activity>
+        <activity
+            android:name=".Base.BaseLogin"
+            android:parentActivityName=".Base.BaseLogin">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Base.BaseLogin" />
+        </activity>
     </application>
 
 </manifest>

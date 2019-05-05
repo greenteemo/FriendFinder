@@ -18,7 +18,6 @@ import android.content.Intent;
 
 import com.group.friendfinder.Base.BaseLazyLoadFragment;
 import com.group.friendfinder.R;
-import com.group.friendfinder.View.search.SearchResult;
 
 public class SearchFragment extends BaseLazyLoadFragment{
 
