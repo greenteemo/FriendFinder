@@ -63,6 +63,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Base.BaseLogin" />
         </activity>
+        <activity
+            android:name=".Base.BaseLogin">
+
+        </activity>
+        <activity
+            android:name=".Base.BaseSub">
+
+        </activity>
     </application>
 
 </manifest>

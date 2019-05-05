@@ -106,7 +106,7 @@ public class BaseLogin extends Activity{
         {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BaseLogin.this, BaseActivity.class);
+                Intent intent = new Intent(BaseLogin.this, BaseSub.class);
                 startActivity(intent);
                 finish();
             }
