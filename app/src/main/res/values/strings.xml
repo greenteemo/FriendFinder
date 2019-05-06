@@ -25,6 +25,8 @@
     <string name="search_search">search!</string>
     <string name="search_hint"> select multiple matching attributes and view a list of other students who meet these criteria with their information </string>
 
+    <string name="add_new_friend">add as a new friend</string>
+
     <string name="profile_change">change</string>
 
     <string name="search_result_button">show on map</string>
