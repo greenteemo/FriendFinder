@@ -1,5 +1,7 @@
 package com.group.friendfinder.View.home.func;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -57,6 +59,11 @@ public class GetMovieInfo extends AppCompatActivity {
         movieImg = findViewById(R.id.movieImg);
 
         new getWebAsyncTask().execute("http://www.omdbapi.com/?apikey=7c1f6129&t=" + movieTitle);
+
+        SharedPreferences spStudentid = getSharedPreferences("spStudentid",
+                Context.MODE_PRIVATE);
+        String sid = spStudentid.getString("Studentid", "");
+        System.out.println(sid);
     }
 
     /**
