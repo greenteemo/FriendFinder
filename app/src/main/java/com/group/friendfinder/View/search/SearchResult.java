@@ -62,6 +62,8 @@ public class SearchResult extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         new SearchNewFriendsAsync(intent.getIntArrayExtra("attributes")).execute();
         mbtn1.setOnClickListener(new View.OnClickListener() {

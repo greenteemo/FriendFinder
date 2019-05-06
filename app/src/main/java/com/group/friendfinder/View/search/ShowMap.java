@@ -76,17 +76,29 @@ public class ShowMap extends AppCompatActivity {
         //构建Marker图标
         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding_other);
 
-        Marker marker[] = new Marker[this.count] ;
         for(int i = 0;i < this.count; i++) {
             //定义Maker坐标点
             LatLng point = new LatLng(31.227 + i, 121.481 - i);
             //构建MarkerOption，用于在地图上添加Marker
             OverlayOptions over_option = new MarkerOptions().position(point).icon(bitmap);
             //在地图上添加Marker，并显示
-            marker[i] = (Marker)mBaiduMap.addOverlay(over_option);
-            //marker[i]
-        }
+            Marker marker = (Marker)mBaiduMap.addOverlay(over_option);
+            //marker
+            Bundle mBundle = new Bundle();
+            mBundle.putInt("id", i);
 
+        }
+        BaiduMap.OnMarkerClickListener onMarkerClickListener = new BaiduMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Intent intent = new Intent();
+                Bundle bundle = marker.getExtraInfo();
+                int id = bundle.getInt("id");
+                intent.putExtra("id", id);
+                //startActivity(intent, NewFriend.class);
+                return false;
+            }
+        };
     }
     @Override
     protected void onResume() {

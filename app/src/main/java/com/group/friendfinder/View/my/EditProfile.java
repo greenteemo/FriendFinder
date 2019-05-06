@@ -1,6 +1,8 @@
 package com.group.friendfinder.View.my;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,11 +14,16 @@ import android.widget.Spinner;
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.MainActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class EditProfile extends AppCompatActivity {
 
-    private EditText et[] = new EditText[11];
+    private EditText et[] = new EditText[12];
     private enum mET{
+        profile_edit_email,
         profile_edit_first_name,
         profile_edit_surname,
         profile_edit_birthday,
@@ -41,6 +48,7 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+        this.et[mET.profile_edit_email.ordinal()] = findViewById(R.id.profile_edit_email);
         this.et[mET.profile_edit_first_name.ordinal()] = findViewById(R.id.profile_edit_first_name);
         this.et[mET.profile_edit_surname.ordinal()] = findViewById(R.id.profile_edit_surname);
         this.et[mET.profile_edit_birthday.ordinal()] = findViewById(R.id.profile_edit_birthday);
@@ -56,6 +64,31 @@ public class EditProfile extends AppCompatActivity {
         this.sp[mSP.profile_edit_study_mode.ordinal()] = findViewById(R.id.profile_edit_study_mode);
         this.sp[mSP.profile_edit_nationality.ordinal()] = findViewById(R.id.profile_edit_nationality);
         this.mbtn1 = findViewById(R.id.profile_button);
+
+        SharedPreferences spUserInfo = getSharedPreferences("spUserInfo", Context.MODE_PRIVATE);
+        String UserInfo = spUserInfo.getString("UserInfo", "");
+        try {
+            JSONArray marray = new JSONArray(UserInfo);
+            JSONObject mobj = marray.getJSONObject(0);
+
+            et[mET.profile_edit_email.ordinal()].setText(mobj.getString("smonashEmail"));
+            et[mET.profile_edit_first_name.ordinal()].setText(mobj.getString("firstname"));
+            et[mET.profile_edit_surname.ordinal()].setText(mobj.getString("studentid"));
+            et[mET.profile_edit_birthday.ordinal()].setText(mobj.getString("dateOfBirth"));
+            sp[mSP.profile_edit_gender.ordinal()].setSelection(mobj.getInt("gender"));
+            et[mET.profile_edit_course.ordinal()].setText(mobj.getString("course"));
+            sp[mSP.profile_edit_study_mode.ordinal()].setSelection(mobj.getInt("studyMode"));
+            et[mET.profile_edit_address.ordinal()].setText(mobj.getString("address"));
+            et[mET.profile_edit_suburb.ordinal()].setText(mobj.getString("suburb"));
+            sp[mSP.profile_edit_nationality.ordinal()].setSelection(mobj.getInt("nationality"));
+            et[mET.profile_edit_native_language.ordinal()].setText(mobj.getString("nativeLanguage"));
+            et[mET.profile_edit_favourite_sport.ordinal()].setText(mobj.getString("favorSport"));
+            et[mET.profile_edit_favourite_movie.ordinal()].setText(mobj.getString("favorMovie"));
+            et[mET.profile_edit_favourite_unit.ordinal()].setText(mobj.getString("favorUnit"));
+            et[mET.profile_edit_current_job.ordinal()].setText(mobj.getString("job"));
+        }catch (JSONException e){
+
+        }
 
         mbtn1.setOnClickListener(new View.OnClickListener() {
             @Override
