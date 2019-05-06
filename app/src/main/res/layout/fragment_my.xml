@@ -332,6 +332,13 @@
         </LinearLayout>
     </ScrollView>
     <Button
+        android:id="@+id/my_friend_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_friend_button"
+        android:textColor="@color/colorPrimary" />
+
+    <Button
         android:id="@+id/my_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

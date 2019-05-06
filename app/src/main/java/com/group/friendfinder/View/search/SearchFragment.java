@@ -91,6 +91,7 @@ public class SearchFragment extends BaseLazyLoadFragment{
                 }else {
                     Intent intent = new Intent(getActivity(), SearchResult.class);
                     intent.putExtra("attributes",attributes);
+                    intent.putExtra("mode",0);
                     startActivity(intent);
                 }
             }

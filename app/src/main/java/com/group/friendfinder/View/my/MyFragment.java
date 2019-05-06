@@ -21,7 +21,7 @@ public class MyFragment extends BaseLazyLoadFragment{
             my_show_birthday,my_show_gender,my_show_course,my_show_study_mode,my_show_address,
             my_show_suburb,my_show_nationality,my_show_native_language,my_show_favourite_sport,
             my_show_favourite_movie,my_show_favourite_unit,my_show_current_job;
-    private Button my_button;
+    private Button my_button,my_friend_button;
     @Override
     protected void getData() {
 
@@ -57,6 +57,7 @@ public class MyFragment extends BaseLazyLoadFragment{
         my_show_favourite_unit = mContentView.findViewById(R.id.my_show_favourite_unit);
         my_show_current_job = mContentView.findViewById(R.id.my_show_current_job);
         my_button = mContentView.findViewById(R.id.my_button);
+        my_friend_button = mContentView.findViewById(R.id.my_friend_button);
 
         SharedPreferences spUserInfo = getActivity().getSharedPreferences("spUserInfo", Context.MODE_PRIVATE);
         String UserInfo = spUserInfo.getString("UserInfo", "");
@@ -89,6 +90,14 @@ public class MyFragment extends BaseLazyLoadFragment{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditProfile.class);
+                startActivity(intent);
+            }
+        });
+        my_friend_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchResult.class);
+                intent.putExtra("mode", 1);
                 startActivity(intent);
             }
         });

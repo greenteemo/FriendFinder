@@ -26,7 +26,7 @@ public class NewFriend extends AppCompatActivity {
             new_friend_show_suburb,new_friend_show_nationality,new_friend_show_native_language,new_friend_show_favourite_sport,
             new_friend_show_favourite_movie,new_friend_show_favourite_unit,new_friend_show_current_job;
     private Button add_new_friend_button;
-    private int stuid;
+    private int stuid,mode;
     private String newfriend;
     private Toolbar toolbar;
 
@@ -55,6 +55,12 @@ public class NewFriend extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        if(mode == 1) {
+            toolbar.setBackgroundColor(getColor(R.color.my_bar));
+            add_new_friend_button.setText("DELETE FRIEND");
+        }
+        int test = intent.getIntExtra("stuid",0);
+        System.out.println(test);
         new SearchNewFriendsAsync(intent.getIntExtra("stuid",0)).execute();
 
         add_new_friend_button.setOnClickListener(new View.OnClickListener() {

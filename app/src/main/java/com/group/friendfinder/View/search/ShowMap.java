@@ -30,7 +30,7 @@ public class ShowMap extends AppCompatActivity {
     private Toolbar toolbar;
     private BaiduMap mBaiduMap;
     private LocationClient mLocationClient;
-    private int count = 0;
+    private int count = 0, mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class ShowMap extends AppCompatActivity {
 
         Intent intent = getIntent();
         count = intent.getIntExtra("count", 0);
+        mode = intent.getIntExtra("mode", 0);
 
 
         toolbar = findViewById(R.id.toolbar);
@@ -85,20 +86,21 @@ public class ShowMap extends AppCompatActivity {
             Marker marker = (Marker)mBaiduMap.addOverlay(over_option);
             //marker
             Bundle mBundle = new Bundle();
-            mBundle.putInt("id", i);
-
+            mBundle.putInt("id", 30074000 + i);
+            marker.setExtraInfo(mBundle);
         }
-        BaiduMap.OnMarkerClickListener onMarkerClickListener = new BaiduMap.OnMarkerClickListener() {
+        mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Intent intent = new Intent();
+                Intent intent = new Intent(ShowMap.this,NewFriend.class);
                 Bundle bundle = marker.getExtraInfo();
                 int id = bundle.getInt("id");
-                intent.putExtra("id", id);
-                //startActivity(intent, NewFriend.class);
+                intent.putExtra("stuid", id);
+                intent.putExtra("mode", mode);
+                startActivity(intent);
                 return false;
             }
-        };
+        });
     }
     @Override
     protected void onResume() {

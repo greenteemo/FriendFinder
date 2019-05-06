@@ -49,7 +49,7 @@ public class SearchResult extends AppCompatActivity {
     private ListView mlistView;
     private Button mbtn1;
     private String NewFriends;
-    private int count = 0;
+    private int count = 0, mode;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,14 +62,19 @@ public class SearchResult extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
-        new SearchNewFriendsAsync(intent.getIntArrayExtra("attributes")).execute();
+        mode = intent.getIntExtra("mode", 0 );
+        if(mode == 1){
+            toolbar.setBackgroundColor(getColor(R.color.my_bar));
+        }else {
+            new SearchNewFriendsAsync(intent.getIntArrayExtra("attributes")).execute();
+        }
         mbtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SearchResult.this, ShowMap.class);
+                intent.putExtra("mode", mode);
                 intent.putExtra("count",count );
                 startActivity(intent);
             }
@@ -102,11 +107,55 @@ public class SearchResult extends AppCompatActivity {
                 JSONArray myArray = new JSONArray(NewFriends);
                 count = myArray.length();
                 if(count == 0){
+                    if(mode == 1){
+                        mTextView.setText("try to add a new friend");
+                        mTextView.setTextColor(getColor(R.color.blue));
+                    }
                     Toast.makeText(SearchResult.this, "no result",Toast.LENGTH_SHORT).show();
                 }else {
                     mTextView.setText("Found " + count + " new friends who has those same attributes with you");
                     mTextView.setTextColor(getColor(R.color.blue));
-                    mlistView.setAdapter(new FriendListAdpter(myArray, SearchResult.this));
+                    mlistView.setAdapter(new FriendListAdpter(myArray, SearchResult.this, mode));
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class SearchExistFriendsAsync extends AsyncTask<Integer, Void, String> {
+        private int[] attributes;
+        private SearchExistFriendsAsync(int[] attributes) {
+            this.attributes = attributes;
+        }
+        protected String doInBackground(Integer... params) {
+            SharedPreferences spStudentid = getSharedPreferences("spStudentid",
+                    Context.MODE_PRIVATE);
+            String sid = spStudentid.getString("Studentid", "");
+            System.out.println(sid);
+            return RestClient.getStudentsByKeys(Integer.parseInt(sid),0,0,
+                    attributes[0],attributes[1],attributes[2],attributes[3],attributes[4],
+                    attributes[5],attributes[6],attributes[7],attributes[8],attributes[9],
+                    attributes[10],attributes[11],attributes[12],attributes[13],attributes[0],
+                    attributes[0]);
+        }
+
+        /** The system calls this to perform work in the UI thread and delivers
+         * the result from doInBackground() */
+        protected void onPostExecute(String ret) {
+            NewFriends = ret;
+            Toast.makeText(SearchResult.this, NewFriends,Toast.LENGTH_SHORT).show();
+            try {
+                JSONArray myArray = new JSONArray(NewFriends);
+                count = myArray.length();
+                if(count == 0){
+                    mTextView.setText("try to add a new friend");
+                    mTextView.setTextColor(getColor(R.color.blue));
+                    Toast.makeText(SearchResult.this, "no result",Toast.LENGTH_SHORT).show();
+                }else {
+                    mTextView.setText("Found " + count + " new friends who has those same attributes with you");
+                    mTextView.setTextColor(getColor(R.color.blue));
+                    mlistView.setAdapter(new FriendListAdpter(myArray, SearchResult.this, mode));
                 }
             }catch (JSONException e){
                 e.printStackTrace();

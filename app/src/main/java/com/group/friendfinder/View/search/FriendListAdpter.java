@@ -20,11 +20,13 @@ import java.io.IOException;
 public class FriendListAdpter extends BaseAdapter {
     private JSONArray mArray;
     private Context mContext;
+    private int mode = 0;
     private LayoutInflater mlayoutinflater;
 
-    public FriendListAdpter(JSONArray jsonArray, Context context){
+    public FriendListAdpter(JSONArray jsonArray, Context context, int mode){
         this.mArray = jsonArray;
         this.mContext = context;
+        this.mode = mode;
         mlayoutinflater = LayoutInflater.from(context);
     }
     @Override
@@ -53,7 +55,7 @@ public class FriendListAdpter extends BaseAdapter {
         }else {
             mholder = (ViewHolder) convertView.getTag();
         }
-        mholder.mTextApply.setText("ADD");
+        mholder.mTextApply.setText(mode == 0?"ADD":"DELETE");
         mholder.mTextMore.setText("DETAILS");
         try {
             JSONObject mobj = mArray.getJSONObject(position);

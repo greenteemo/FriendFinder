@@ -32,6 +32,8 @@
 
     <string name="my_change">change</string>
 
+    <string name="my_friend_button">my friend list</string>
+
     <string name="my_studentid">Student Id</string>
     <string name="profile_password">password</string>
     <string name="profile_email">E-mail</string>
