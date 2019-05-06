@@ -14,6 +14,6 @@ public class NewFriend extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_friend);
         Intent intent = getIntent();
-        intent.getIntExtra("stuid", stuid);
+        stuid = intent.getIntExtra("stuid",0);
     }
 }

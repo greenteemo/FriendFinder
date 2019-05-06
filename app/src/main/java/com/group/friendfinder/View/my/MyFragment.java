@@ -1,9 +1,12 @@
 package com.group.friendfinder.View.my;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.group.friendfinder.Base.BaseLazyLoadFragment;
 import com.group.friendfinder.R;
@@ -54,6 +57,9 @@ public class MyFragment extends BaseLazyLoadFragment{
         my_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences spUserInfo = getActivity().getSharedPreferences("spUserInfo", Context.MODE_PRIVATE);
+                String UserInfo = spUserInfo.getString("UserInfo", "");
+                Toast.makeText(getContext(),UserInfo,Toast.LENGTH_LONG);
                 Intent intent = new Intent(getActivity(), EditProfile.class);
                 startActivity(intent);
             }

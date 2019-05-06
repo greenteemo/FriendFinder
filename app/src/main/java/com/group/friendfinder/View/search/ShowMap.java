@@ -1,5 +1,6 @@
 package com.group.friendfinder.View.search;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +13,10 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BaiduMapOptions;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
@@ -26,11 +30,16 @@ public class ShowMap extends AppCompatActivity {
     private Toolbar toolbar;
     private BaiduMap mBaiduMap;
     private LocationClient mLocationClient;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_map);
+
+        Intent intent = getIntent();
+        count = intent.getIntExtra("count", 0);
+
 
         toolbar = findViewById(R.id.toolbar);
         mMapView = findViewById(R.id.bmapView);
@@ -61,15 +70,22 @@ public class ShowMap extends AppCompatActivity {
         mLocationClient.registerLocationListener(myLocationListener);
         //开启地图定位图层
         mLocationClient.start();
-
-        //定义Maker坐标点
-        LatLng point = new LatLng(31.227, 121.481);
+        MapStatus.Builder builder = new MapStatus.Builder();
+        builder.zoom(10.0f);
+        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
         //构建Marker图标
         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_gcoding_other);
-        //构建MarkerOption，用于在地图上添加Marker
-        OverlayOptions over_option = new MarkerOptions().position(point).icon(bitmap);
-        //在地图上添加Marker，并显示
-        mBaiduMap.addOverlay(over_option);
+
+        Marker marker[] = new Marker[this.count] ;
+        for(int i = 0;i < this.count; i++) {
+            //定义Maker坐标点
+            LatLng point = new LatLng(31.227 + i, 121.481 - i);
+            //构建MarkerOption，用于在地图上添加Marker
+            OverlayOptions over_option = new MarkerOptions().position(point).icon(bitmap);
+            //在地图上添加Marker，并显示
+            marker[i] = (Marker)mBaiduMap.addOverlay(over_option);
+            //marker[i]
+        }
 
     }
     @Override
