@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -30,6 +32,10 @@ import com.group.friendfinder.View.RestClient;
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.home.func.FavorUnitsPie;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +45,8 @@ import java.util.regex.Pattern;
 public class SearchResult extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private TextView mTextView;
+    private ListView mlistView;
     private Button mbtn1;
     private String NewFriends;
     @Override
@@ -47,13 +55,14 @@ public class SearchResult extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
 
         toolbar = findViewById(R.id.toolbar);
+        mTextView = findViewById(R.id.new_friend_count);
+        mlistView = findViewById(R.id.listview);
         mbtn1 = findViewById(R.id.search_result_botton);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         new SearchNewFriendsAsync(intent.getIntArrayExtra("attributes")).execute();
-
         mbtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,9 +94,19 @@ public class SearchResult extends AppCompatActivity {
         protected void onPostExecute(String ret) {
             NewFriends = ret;
             Toast.makeText(SearchResult.this, NewFriends,Toast.LENGTH_SHORT).show();
-
-            String pattern1 = "\"frequency\":(.*?),\"";
-            String pattern2 = "\"item_name\":\"(.*?)\"";
+            try {
+                JSONArray myArray = new JSONArray(NewFriends);
+                int count = myArray.length();
+                if(count == 0){
+                    Toast.makeText(SearchResult.this, "no result",Toast.LENGTH_SHORT).show();
+                }else {
+                    mTextView.setText("Found " + count + " new friends who has those same attributes with you");
+                    mTextView.setTextColor(getColor(R.color.blue));
+                    mlistView.setAdapter(new FriendListAdpter(myArray, SearchResult.this));
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
         }
     }
 }

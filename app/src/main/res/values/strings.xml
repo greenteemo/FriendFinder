@@ -27,9 +27,13 @@
 
     <string name="add_new_friend">add as a new friend</string>
 
+    <string name="apply_friend">add</string>
+    <string name="more_detail">details</string>
+
     <string name="profile_change">change</string>
 
     <string name="search_result_button">show on map</string>
+    <string name="found_no_new_friend"> Sorry, there is no person has those same attributes with you</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
