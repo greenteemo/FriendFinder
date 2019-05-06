@@ -2,6 +2,12 @@ package com.group.friendfinder.View;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.group.friendfinder.Friendship;
+import com.group.friendfinder.Location;
+import com.group.friendfinder.Profile;
+
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
@@ -183,6 +189,154 @@ public class RestClient {
      */
     public static String getVistedTimes(Integer studentId, String startDate, String endDate) {
         final String methodPath = "/monashfriendfinder.mfflocation/locationsVisited/" + studentId + "/" + startDate + "/" + endDate;
+        //initialise
+        URL url = null;
+        HttpURLConnection conn = null;
+        String textResult = "";
+        //Making HTTP request
+        try {
+            url = new URL(BASE_URI + methodPath);
+            //open the connection
+            conn = (HttpURLConnection) url.openConnection();
+            //set the timeout
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            //set the connection method to GET
+            conn.setRequestMethod("GET");
+            //add http headers to set your response type to json
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+            //Read the response
+            Scanner inStream = new Scanner(conn.getInputStream());
+            //read the input steream and store it as string
+            while (inStream.hasNextLine()) {
+                textResult += inStream.nextLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
+        }
+        return textResult;
+    }
+
+    /*
+    post Profile
+     */
+    public static void postProfile(Profile profile){
+        //initialise
+        URL url = null;
+        HttpURLConnection conn = null;
+        final String methodPath="/monashfriendfinder.mffprofile/";
+        try {
+            Gson gson =new Gson();
+            String stringProfileJson=gson.toJson(profile);
+            System.out.print(stringProfileJson);
+            url = new URL(BASE_URI + methodPath);
+            //open the connection
+            conn = (HttpURLConnection) url.openConnection();
+            //set the timeout
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            //set the connection method to POST
+            conn.setRequestMethod("POST");
+            //set the output to true
+            conn.setDoOutput(true);
+            //set length of the data you want to send
+            conn.setFixedLengthStreamingMode(stringProfileJson.getBytes().length);
+            //add HTTP headers
+            conn.setRequestProperty("Content-Type", "application/json");
+            //Send the POST out
+            PrintWriter out= new PrintWriter(conn.getOutputStream());
+            out.print(stringProfileJson);
+            out.close();
+            Log.i("code",new Integer(conn.getResponseCode()).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
+        }
+    }
+
+    /*
+    post Location
+     */
+    public static void postLocation(Location location){
+        //initialise
+        URL url = null;
+        HttpURLConnection conn = null;
+        final String methodPath="/monashfriendfinder.mfflocation/";
+        try {
+            Gson gson =new Gson();
+            String stringProfileJson=gson.toJson(location);
+            System.out.print(stringProfileJson);
+            url = new URL(BASE_URI + methodPath);
+            //open the connection
+            conn = (HttpURLConnection) url.openConnection();
+            //set the timeout
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            //set the connection method to POST
+            conn.setRequestMethod("POST");
+            //set the output to true
+            conn.setDoOutput(true);
+            //set length of the data you want to send
+            conn.setFixedLengthStreamingMode(stringProfileJson.getBytes().length);
+            //add HTTP headers
+            conn.setRequestProperty("Content-Type", "application/json");
+            //Send the POST out
+            PrintWriter out= new PrintWriter(conn.getOutputStream());
+            out.print(stringProfileJson);
+            out.close();
+            Log.i("code",new Integer(conn.getResponseCode()).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
+        }
+    }
+
+    /*
+    post Friendship
+     */
+    public static void postFriendship(Friendship friendship){
+        //initialise
+        URL url = null;
+        HttpURLConnection conn = null;
+        final String methodPath="/monashfriendfinder.mfffriendship/";
+        try {
+            Gson gson =new Gson();
+            String stringProfileJson=gson.toJson(friendship);
+            System.out.print(stringProfileJson);
+            url = new URL(BASE_URI + methodPath);
+            //open the connection
+            conn = (HttpURLConnection) url.openConnection();
+            //set the timeout
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            //set the connection method to POST
+            conn.setRequestMethod("POST");
+            //set the output to true
+            conn.setDoOutput(true);
+            //set length of the data you want to send
+            conn.setFixedLengthStreamingMode(stringProfileJson.getBytes().length);
+            //add HTTP headers
+            conn.setRequestProperty("Content-Type", "application/json");
+            //Send the POST out
+            PrintWriter out= new PrintWriter(conn.getOutputStream());
+            out.print(stringProfileJson);
+            out.close();
+            Log.i("code",new Integer(conn.getResponseCode()).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
+        }
+    }
+
+    // get student by id
+    public static String getStudents(Integer id) {
+        final String methodPath = "/monashfriendfinder.mffprofile/findByStudentid/" + id;
         //initialise
         URL url = null;
         HttpURLConnection conn = null;
