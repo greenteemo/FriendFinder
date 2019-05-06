@@ -71,6 +71,9 @@ public class FriendListAdpter extends BaseAdapter {
         mholder.mTextMore.setText("DETAILS");
         try {
             JSONObject mobj = mArray.getJSONObject(position);
+            if(mode == 1) {
+                mobj = mobj.getJSONObject("ffriendid");
+            }
             final int stuid = mobj.getInt("studentid");
             mholder.mTextName.setText(mobj.getString("firstname") + " " + mobj.getString("surname"));
             mholder.mTextGender.setText(mobj.getInt("gender") == 1? "female":"male");
