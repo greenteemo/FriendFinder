@@ -12,14 +12,38 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.MainActivity;
+
+
+import java.util.Calendar;
+
+
 
 public class BaseLogin extends Activity {
     Button bnlogin, bnsub;  //
     EditText etaccount, etpwd;
     TextView etsound_help, etsound_facebook;
+
+    Calendar calendar = Calendar.getInstance();
+    //获取系统的日期
+//年
+    int year = calendar.get(Calendar.YEAR);
+    //月
+    int month = calendar.get(Calendar.MONTH)+1;
+    //日
+    int day = calendar.get(Calendar.DAY_OF_MONTH);
+    //获取系统时间
+//小时
+    int hour = calendar.get(Calendar.HOUR_OF_DAY);
+    //分钟
+    int minute = calendar.get(Calendar.MINUTE);
+    //秒
+    int second = calendar.get(Calendar.SECOND);
+
+
+
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
