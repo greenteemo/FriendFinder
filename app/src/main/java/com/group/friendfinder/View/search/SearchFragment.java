@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.content.Intent;
 
 import com.group.friendfinder.Base.BaseLazyLoadFragment;
 import com.group.friendfinder.R;
@@ -87,6 +88,10 @@ public class SearchFragment extends BaseLazyLoadFragment{
                 }
                 if(index == 0) {
                     Toast.makeText(getContext(), "you have to select one attribute at least",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(getActivity(), SearchResult.class);
+                    intent.putExtra("attributes",attributes);
+                    startActivity(intent);
                 }
             }
         });

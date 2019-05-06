@@ -53,7 +53,7 @@ public class EditProfile extends AppCompatActivity {
         this.sp[mSP.profile_edit_gender.ordinal()] = findViewById(R.id.profile_edit_gender);
         this.sp[mSP.profile_edit_study_mode.ordinal()] = findViewById(R.id.profile_edit_study_mode);
         this.sp[mSP.profile_edit_nationality.ordinal()] = findViewById(R.id.profile_edit_nationality);
-        this.mbtn1 = findViewById(R.id.profile_button);
+        this.mbtn1 = findViewById(R.id.apply_button);
 
         mbtn1.setOnClickListener(new View.OnClickListener() {
             @Override

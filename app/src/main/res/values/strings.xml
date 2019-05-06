@@ -20,13 +20,16 @@
     <string name="search_favourite_movie">Favourite Movie</string>
     <string name="search_favourite_unit">Favourite Unit</string>
     <string name="search_current_job">Current Job</string>
+
     <string name="search_whatever">whatever</string>
     <string name="search_search">search!</string>
     <string name="search_hint"> select multiple matching attributes and view a list of other students who meet these criteria with their information </string>
 
+    <string name="add_new_friend">add as a new friend</string>
+
     <string name="profile_change">change</string>
 
-    <string name="search_result_button">change</string>
+    <string name="search_result_button">show on map</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
