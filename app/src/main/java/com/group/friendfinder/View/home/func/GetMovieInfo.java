@@ -64,6 +64,11 @@ public class GetMovieInfo extends AppCompatActivity {
                 Context.MODE_PRIVATE);
         String sid = spStudentid.getString("Studentid", "");
         System.out.println(sid);
+
+        SharedPreferences spUserInfo = getSharedPreferences("spUserInfo",
+                Context.MODE_PRIVATE);
+        String UserInfo = spUserInfo.getString("UserInfo", "");
+        System.out.println(UserInfo);
     }
 
     /**

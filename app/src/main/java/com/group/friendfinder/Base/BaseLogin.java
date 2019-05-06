@@ -89,11 +89,15 @@ public class BaseLogin extends Activity {
             // TODO Auto-generated method stub
             super.onPostExecute(ret);
             if(ret != null){
-                String pattern1 = "\"studentid\":(.*?),\"";
+                SharedPreferences spUserInfo = getSharedPreferences("spUserInfo",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor eUserInfo = spUserInfo.edit();
+                eUserInfo.putString("UserInfo", ret);
+                eUserInfo.commit();
 
+                String pattern1 = "\"studentid\":(.*?),\"";
                 // Create a Pattern object
                 Pattern r1 = Pattern.compile(pattern1);
-
                 // Now create matcher object.
                 Matcher m1 = r1.matcher(ret);
                 if(m1.find()){
