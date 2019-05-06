@@ -56,7 +56,7 @@ public class BaseLogin extends Activity{
 //获取按钮
         bnlogin = (Button) findViewById(R.id.resetpwd_btn_sure);
         bnsub = (Button) findViewById(R.id.sub);
-
+/**
         etsound_help.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -94,7 +94,7 @@ public class BaseLogin extends Activity{
                     }
 
                     }
-                     });*/
+                     });
                 }
 
 
@@ -110,7 +110,7 @@ public class BaseLogin extends Activity{
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
 
 
 
