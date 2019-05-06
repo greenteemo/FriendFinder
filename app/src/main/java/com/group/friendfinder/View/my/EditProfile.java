@@ -1,5 +1,6 @@
 package com.group.friendfinder.View.my;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.group.friendfinder.R;
+import com.group.friendfinder.View.MainActivity;
 
 
 public class EditProfile extends AppCompatActivity {
@@ -53,12 +55,13 @@ public class EditProfile extends AppCompatActivity {
         this.sp[mSP.profile_edit_gender.ordinal()] = findViewById(R.id.profile_edit_gender);
         this.sp[mSP.profile_edit_study_mode.ordinal()] = findViewById(R.id.profile_edit_study_mode);
         this.sp[mSP.profile_edit_nationality.ordinal()] = findViewById(R.id.profile_edit_nationality);
-        this.mbtn1 = findViewById(R.id.apply_button);
+        this.mbtn1 = findViewById(R.id.profile_button);
 
         mbtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                et[2].setHintTextColor(Color.RED);
+                Intent intent = new Intent(EditProfile.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
