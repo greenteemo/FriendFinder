@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.group.friendfinder.Friendship;
 import com.group.friendfinder.Profile;
@@ -96,9 +97,11 @@ public class FriendListAdpter extends BaseAdapter {
                         String startDate = "2019-05-05T00:00:00+08:00";
                         String endDate = "";
                         new postFriendshipAsync().execute(sid, stuid + "", startDate, endDate);
+                        Toast.makeText(mContext, "you add a new friend successfully", Toast.LENGTH_LONG);
                     }else {
                         String friendshipid = spStudentid + "_" + sid;
                         new deleteFriendAsyncTask().execute(friendshipid);
+                        Toast.makeText(mContext, "you delete a new friend successfully", Toast.LENGTH_LONG);
                     }
                 }
             });

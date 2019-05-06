@@ -78,16 +78,18 @@ public class NewFriend extends AppCompatActivity {
         add_new_friend_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences spStudentid = getSharedPreferences("spStudentid",
+                        Context.MODE_PRIVATE);
+                String sid = spStudentid.getString("Studentid", "");
                 if(mode == 0){
-                    SharedPreferences spStudentid = getSharedPreferences("spStudentid",
-                            Context.MODE_PRIVATE);
-                    String sid = spStudentid.getString("Studentid", "");
                     String startDate = "2019-05-05T00:00:00+08:00";
                     String endDate = "";
                     new postFriendshipAsync().execute(sid, stuid+"", startDate, endDate);
                     Toast.makeText(NewFriend.this, "you add a new friend successfully", Toast.LENGTH_LONG);
                 }else{
-                    Toast.makeText(NewFriend.this,"failed to add",Toast.LENGTH_LONG);
+                    String friendshipid = spStudentid + "_" + sid;
+                    new deleteFriendAsyncTask().execute(friendshipid);
+                    Toast.makeText(NewFriend.this, "you delete a new friend successfully", Toast.LENGTH_LONG);
                 }
             }
         });
@@ -256,6 +258,19 @@ public class NewFriend extends AppCompatActivity {
         protected void onPostExecute(String students) {
             System.out.println(students);
             getProfileStr = students;
+        }
+    }
+    private class deleteFriendAsyncTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            RestClient.deleteFriend(params[0]);
+            return "Friendship was deleted";
+        }
+
+        @Override
+        protected void onPostExecute(String ret) {
+            System.out.println(ret);
         }
     }
 }
