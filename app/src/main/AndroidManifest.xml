@@ -24,20 +24,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".View.search.NewFriend"></activity>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="djNWAPWGbrjWyL810xQD3Sa9EdLbr5pM" />
 
-        <service android:name="com.baidu.location.f"
+        <service
+            android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"/>
+            android:process=":remote" />
 
         <activity android:name=".View.my.EditProfile" />
-        <activity android:name=".Base.BaseLogin"></activity>
+        <activity android:name=".Base.BaseLogin" />
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -83,7 +86,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Base.BaseStart" />
         </activity>
-        <activity android:name=".Base.BaseSub"></activity>
+        <activity android:name=".Base.BaseSub" />
         <activity
             android:name=".View.search.ShowMap"
             android:parentActivityName=".View.search.ShowMap">
