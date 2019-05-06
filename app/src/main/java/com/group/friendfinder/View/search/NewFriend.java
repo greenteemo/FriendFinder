@@ -3,6 +3,7 @@ package com.group.friendfinder.View.search;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,9 +56,11 @@ public class NewFriend extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mode = intent.getIntExtra("mode",0);
         if(mode == 1) {
             toolbar.setBackgroundColor(getColor(R.color.my_bar));
             add_new_friend_button.setText("DELETE FRIEND");
+            add_new_friend_button.setTextColor(Color.RED);
         }
         int test = intent.getIntExtra("stuid",0);
         System.out.println(test);

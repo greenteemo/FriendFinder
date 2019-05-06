@@ -3,6 +3,7 @@ package com.group.friendfinder.View.search;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,6 +67,7 @@ public class FriendListAdpter extends BaseAdapter {
             mholder = (ViewHolder) convertView.getTag();
         }
         mholder.mTextApply.setText(mode == 0?"ADD":"DELETE");
+        if(mode == 1) mholder.mTextApply.setTextColor(Color.RED);
         mholder.mTextMore.setText("DETAILS");
         try {
             JSONObject mobj = mArray.getJSONObject(position);
