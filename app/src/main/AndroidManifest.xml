@@ -9,7 +9,7 @@
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -30,14 +30,18 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="djNWAPWGbrjWyL810xQD3Sa9EdLbr5pM" />
 
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
+
 
         <activity android:name=".View.my.EditProfile" />
         <activity android:name=".Base.BaseLogin" />
-        <activity android:name=".View.MainActivity">
+        <activity android:name=".View.MainActivity" />
+
+        <activity android:name=".Base.BaseStart">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".View.home.func.exampleActivity"
@@ -74,17 +78,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.search.SearchResult" />
         </activity>
-        <activity
-            android:name=".Base.BaseStart"
-            android:parentActivityName=".Base.BaseStart">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Base.BaseStart" />
-        </activity>
         <activity android:name=".Base.BaseSub" />
         <activity
             android:name=".View.search.ShowMap"
@@ -92,9 +85,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.search.ShowMap" />
-        </activity>
-        <activity
-            android:name=".View.home.func.GetMovieInfo">
         </activity>
     </application>
 
