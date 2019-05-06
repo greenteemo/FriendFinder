@@ -62,7 +62,6 @@ public class SearchResult extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         mode = intent.getIntExtra("mode", 0 );
         if(mode == 1){

@@ -90,11 +90,16 @@ public class FriendListAdpter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     SharedPreferences spStudentid = mContext.getSharedPreferences("spStudentid",
-                            Context.MODE_PRIVATE);
+                                Context.MODE_PRIVATE);
                     String sid = spStudentid.getString("Studentid", "");
-                    String startDate = "2019-05-05T00:00:00+08:00";
-                    String endDate = "";
-                    new postFriendshipAsync().execute(sid, stuid+"", startDate, endDate);
+                    if(mode == 0) {
+                        String startDate = "2019-05-05T00:00:00+08:00";
+                        String endDate = "";
+                        new postFriendshipAsync().execute(sid, stuid + "", startDate, endDate);
+                    }else {
+                        String friendshipid = spStudentid + "_" + sid;
+                        new deleteFriendAsyncTask().execute(friendshipid);
+                    }
                 }
             });
         }catch (JSONException e){
@@ -233,6 +238,20 @@ public class FriendListAdpter extends BaseAdapter {
         protected void onPostExecute(String students) {
             System.out.println(students);
             getProfileStr = students;
+        }
+    }
+
+    private class deleteFriendAsyncTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            RestClient.deleteFriend(params[0]);
+            return "Friendship was deleted";
+        }
+
+        @Override
+        protected void onPostExecute(String ret) {
+            System.out.println(ret);
         }
     }
 }
