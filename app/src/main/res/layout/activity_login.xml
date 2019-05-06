@@ -59,8 +59,9 @@
                     android:layout_marginStart="20dip"
                     android:layout_toEndOf="@id/user"
                     android:background="@null"
-                    android:hint="@string/accountEdittext"
+                    android:text="6"
                     android:textSize="15sp" />
+                <!--android:hint="@string/accountEdittext"-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -87,9 +88,10 @@
                     android:layout_marginStart="20dip"
                     android:layout_toEndOf="@id/pswicon"
                     android:background="@null"
-                    android:hint="@string/pwd"
+                    android:text="6"
                     android:textSize="15sp"
                     android:inputType="textPassword"/>
+                <!--android:hint="@string/pwd"-->
             </RelativeLayout>
         </RelativeLayout>
 

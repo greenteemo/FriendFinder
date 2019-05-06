@@ -80,13 +80,11 @@ public class BaseLogin extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            // TODO Auto-generated method stub
             return RestClient.login(params[0], params[1]);
         }
 
         @Override
         protected void onPostExecute(String ret) {
-            // TODO Auto-generated method stub
             super.onPostExecute(ret);
             if(ret != null){
                 SharedPreferences spUserInfo = getSharedPreferences("spUserInfo",

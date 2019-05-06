@@ -12,6 +12,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.group.friendfinder.R;
+import com.group.friendfinder.View.RestClient;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,15 +62,12 @@ public class GetMovieInfo extends AppCompatActivity {
 
         new getWebAsyncTask().execute("http://www.omdbapi.com/?apikey=7c1f6129&t=" + movieTitle);
 
-        SharedPreferences spStudentid = getSharedPreferences("spStudentid",
-                Context.MODE_PRIVATE);
-        String sid = spStudentid.getString("Studentid", "");
-        System.out.println(sid);
+//
+//        SharedPreferences spUserInfo = getSharedPreferences("spUserInfo",
+//                Context.MODE_PRIVATE);
+//        String UserInfo = spUserInfo.getString("UserInfo", "");
+//        System.out.println(UserInfo);
 
-        SharedPreferences spUserInfo = getSharedPreferences("spUserInfo",
-                Context.MODE_PRIVATE);
-        String UserInfo = spUserInfo.getString("UserInfo", "");
-        System.out.println(UserInfo);
     }
 
     /**
