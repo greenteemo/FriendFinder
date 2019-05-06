@@ -27,11 +27,5 @@
             android:layout_height="match_parent"
             android:clickable="true" />
 
-        <Button
-            android:id="@+id/back_botton"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="0"
-            android:text="@string/search_result_button" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -33,15 +33,6 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences spStudentid = getSharedPreferences("spStudentid",
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor eStudentid = spStudentid.edit();
-        eStudentid.putString("Studentid", "30074000");
-        eStudentid.commit();
-
-        String sid = spStudentid.getString("Studentid", "");
-        System.out.println(sid);
-
         mToolbar = (Toolbar)findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
      //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);

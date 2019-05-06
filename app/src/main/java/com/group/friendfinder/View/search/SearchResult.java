@@ -1,6 +1,8 @@
 package com.group.friendfinder.View.search;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -67,7 +69,11 @@ public class SearchResult extends AppCompatActivity {
             this.attributes = attributes;
         }
         protected String doInBackground(Integer... params) {
-            return RestClient.getStudentsByKeys(300014,0,0,
+            SharedPreferences spStudentid = getSharedPreferences("spStudentid",
+                    Context.MODE_PRIVATE);
+            String sid = spStudentid.getString("Studentid", "");
+            System.out.println(sid);
+            return RestClient.getStudentsByKeys(Integer.parseInt(sid),0,0,
                     attributes[0],attributes[1],attributes[2],attributes[3],attributes[4],
                     attributes[5],attributes[6],attributes[7],attributes[8],attributes[9],
                     attributes[10],attributes[11],attributes[12],attributes[13],attributes[0],
