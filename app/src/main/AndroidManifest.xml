@@ -29,6 +29,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="djNWAPWGbrjWyL810xQD3Sa9EdLbr5pM" />
 
+        <activity android:name=".View.home.func.GetMovieInfo" />
         <activity android:name=".View.my.EditProfile" />
         <activity android:name=".Base.BaseLogin" />
         <activity android:name=".View.MainActivity" />

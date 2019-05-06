@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.RestClient;
+import com.group.friendfinder.View.home.func.GetMovieInfo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,6 +75,14 @@ public class NewFriend extends AppCompatActivity {
                 }else{
                     Toast.makeText(NewFriend.this,"failed to add",Toast.LENGTH_LONG);
                 }
+            }
+        });
+        new_friend_show_favourite_movie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewFriend.this, GetMovieInfo.class);
+                intent.putExtra("movie",new_friend_show_favourite_movie.getText());
+                startActivity(intent);
             }
         });
     }

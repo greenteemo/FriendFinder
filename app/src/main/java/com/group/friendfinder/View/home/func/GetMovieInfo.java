@@ -1,6 +1,7 @@
 package com.group.friendfinder.View.home.func;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,9 +49,11 @@ public class GetMovieInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
         setContentView(R.layout.movie_detail);
 //        movieTitle = "The Avengers";
         movieTitle = "Game of Thrones";
+        movieTitle = intent.getStringExtra("movie");
 
         ratingBar = findViewById(R.id.ratingBar);
         ratingTextView = findViewById(R.id.ratingTextView);
