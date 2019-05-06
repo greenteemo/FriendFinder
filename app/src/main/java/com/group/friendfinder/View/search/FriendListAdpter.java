@@ -1,6 +1,7 @@
 package com.group.friendfinder.View.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,9 +57,24 @@ public class FriendListAdpter extends BaseAdapter {
         mholder.mTextMore.setText("DETAILS");
         try {
             JSONObject mobj = mArray.getJSONObject(position);
+            final int stuid = mobj.getInt("studentid");
             mholder.mTextName.setText(mobj.getString("firstname") + " " + mobj.getString("surname"));
             mholder.mTextGender.setText(mobj.getInt("gender") == 1? "female":"male");
             mholder.mTextNationality.setText(mobj.getString("nationality"));
+            mholder.mTextMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, NewFriend.class);
+                    intent.putExtra("stuid", stuid);
+                    mContext.startActivity(intent);
+                }
+            });
+            mholder.mTextApply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // todo
+                }
+            });
         }catch (JSONException e){
         }
         return convertView;

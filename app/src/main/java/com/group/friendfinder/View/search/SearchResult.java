@@ -49,6 +49,7 @@ public class SearchResult extends AppCompatActivity {
     private ListView mlistView;
     private Button mbtn1;
     private String NewFriends;
+    private int count = 0;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,7 @@ public class SearchResult extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SearchResult.this, ShowMap.class);
+                intent.putExtra("count",count );
                 startActivity(intent);
             }
         });
@@ -96,7 +98,7 @@ public class SearchResult extends AppCompatActivity {
             Toast.makeText(SearchResult.this, NewFriends,Toast.LENGTH_SHORT).show();
             try {
                 JSONArray myArray = new JSONArray(NewFriends);
-                int count = myArray.length();
+                count = myArray.length();
                 if(count == 0){
                     Toast.makeText(SearchResult.this, "no result",Toast.LENGTH_SHORT).show();
                 }else {
