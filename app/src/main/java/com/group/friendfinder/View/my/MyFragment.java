@@ -91,6 +91,7 @@ public class MyFragment extends BaseLazyLoadFragment{
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditProfile.class);
                 startActivity(intent);
+
             }
         });
         my_friend_button.setOnClickListener(new View.OnClickListener() {
