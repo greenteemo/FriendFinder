@@ -51,4 +51,10 @@
     <string name="reset">修改密码</string>
     <string name="exit">安全退出</string>
     <string name="accountEdittext">ID/Email/Phone number</string>
+
+
+    <string name="home_data">data</string>
+    <string name="home_location">SuZhou</string>
+    <string name="home_temperature">Sunny day 16 deg</string>
+    <string name="home_wind">东北风 4级</string>
 </resources>

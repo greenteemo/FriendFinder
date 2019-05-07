@@ -33,12 +33,15 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar)findViewById(R.id.main_toolbar);
+        mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
      //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initContentFragment();
         initBottomBar();
+
+        
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

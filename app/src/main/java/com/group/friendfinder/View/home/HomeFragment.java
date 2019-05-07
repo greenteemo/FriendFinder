@@ -1,9 +1,14 @@
 package com.group.friendfinder.View.home;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.group.friendfinder.Base.BaseLazyLoadFragment;
@@ -14,10 +19,54 @@ import com.group.friendfinder.View.home.func.GetMovieInfo;
 import com.group.friendfinder.View.home.func.LocationBarChart;
 import com.group.friendfinder.View.home.func.exampleActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class HomeFragment extends BaseLazyLoadFragment{
     private GridView gridView;
-    //private List<Map<String, Object>> data_list;
-    //private HomeGridviewAdapter gridAdapter;
+
+    private TextView txtTime;
+    private final Handler mHandler = new Handler()
+    {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            //Weather weather = (Weather) msg.obj;
+            switch (msg.what) {
+                case 1:
+                    long time = System.currentTimeMillis();
+                    Date date = new Date(time);
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss EEEE");
+                    String data = format.format(date);
+                    txtTime.setText(data);
+                    break;
+                case 2:
+                    break;
+                default:
+                    break;
+
+            }
+        }
+    };
+
+    class TimeThread extends Thread {
+        @Override
+        public void run() {
+            do {
+                try {
+                    Thread.sleep(1000);
+                    Message msg = new Message();
+                    msg.what = 1; //消息(一个整型值)
+                    mHandler.sendMessage(msg);// 每隔1秒发送一个msg给mHandler
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            } while (true);
+        }
+    }
 
     @Override
     protected void getData() {
@@ -36,7 +85,16 @@ public class HomeFragment extends BaseLazyLoadFragment{
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        new TimeThread().start();
+    }
+
+    @Override
     protected void initView(View mContentView) {
+
+        txtTime = mContentView.findViewById(R.id.txtTime);
+
         gridView = mContentView.findViewById(R.id.home_gridview);
         gridView.setAdapter(new HomeGridviewAdapter(getContext()));
 

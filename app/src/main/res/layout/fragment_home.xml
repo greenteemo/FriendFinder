@@ -6,20 +6,73 @@
     android:orientation="vertical">
 
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center"-->
-        <!--android:padding="10dp"-->
-        <!--android:background="@color/home_bar"-->
-        <!--android:text="@string/content_home"-->
-        <!--android:textSize="16sp"-->
-        <!--android:textColor="@color/white"/>-->
-
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_data"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="obtained from Bing"
+            android:src="@mipmap/home_background"/>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtWeather1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_location"
+            />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/txtWeather2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_temperature"
+            />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/txtWeather3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_wind"
+            />
+        <!--<TextView-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:id="@+id/txtWeather4"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Hello World!"-->
+            <!--/>-->
+
+
+    </LinearLayout>
+    </RelativeLayout>
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:src="@mipmap/ic_launcher"/>-->
 
     <View
         android:layout_width="match_parent"
