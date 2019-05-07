@@ -69,6 +69,9 @@
                 android:value=".View.home.func.ChooseDate" />
         </activity>
         <activity
+            android:name=".View.home.func.GetMovieInfo">
+        </activity>
+        <activity
             android:name=".View.search.SearchResult"
             android:parentActivityName=".View.search.SearchResult">
             <meta-data

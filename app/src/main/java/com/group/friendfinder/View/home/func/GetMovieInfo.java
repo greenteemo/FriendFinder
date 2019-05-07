@@ -1,8 +1,6 @@
 package com.group.friendfinder.View.home.func;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -13,7 +11,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.group.friendfinder.R;
-import com.group.friendfinder.View.RestClient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,6 +42,7 @@ public class GetMovieInfo extends AppCompatActivity {
     private TextView movieBriefTextView;
     private ImageView movieImg;
 
+    private String res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

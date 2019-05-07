@@ -1,5 +1,7 @@
 package com.group.friendfinder.View;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -8,6 +10,7 @@ import com.group.friendfinder.Location;
 import com.group.friendfinder.Profile;
 
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
@@ -90,6 +93,7 @@ public class RestClient {
         }
         return textResult;
     }
+
     public static void deleteFriend(String friendshipId){
         final String methodPath ="/monashfriendfinder.mfffriendship/"+ friendshipId;
         URL url = null;
@@ -299,8 +303,9 @@ public class RestClient {
     /*
     post Friendship
      */
-    public static void postFriendship(Friendship friendship){
+    public static String postFriendship(Friendship friendship){
         //initialise
+        String ret = "";
         URL url = null;
         HttpURLConnection conn = null;
         final String methodPath="/monashfriendfinder.mfffriendship/";
@@ -327,11 +332,13 @@ public class RestClient {
             out.print(stringProfileJson);
             out.close();
             Log.i("code",new Integer(conn.getResponseCode()).toString());
+            ret = new Integer(conn.getResponseCode()).toString();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             conn.disconnect();
         }
+        return ret;
     }
 
     // get student by id
@@ -366,5 +373,75 @@ public class RestClient {
             conn.disconnect();
         }
         return textResult;
+    }
+
+    // get most recent location by studentid
+    public static String getMostRecentLoc(Integer studentid) {
+        final String methodPath = "/monashfriendfinder.mfflocation/RecentLocation/" + studentid;
+        //initialise
+        URL url = null;
+        HttpURLConnection conn = null;
+        String textResult = "";
+        //Making HTTP request
+        try {
+            url = new URL(BASE_URI + methodPath);
+            //open the connection
+            conn = (HttpURLConnection) url.openConnection();
+            //set the timeout
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            //set the connection method to GET
+            conn.setRequestMethod("GET");
+            //add http headers to set your response type to json
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+            //Read the response
+            Scanner inStream = new Scanner(conn.getInputStream());
+            //read the input steream and store it as string
+            while(inStream.hasNextLine()) {
+                textResult += inStream.nextLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
+        }
+        return textResult;
+    }
+
+    // updateProfile
+    public static void updateProfile(Integer studentid, Profile profile){
+        //initialise
+        URL url = null;
+        HttpURLConnection conn = null;
+        final String methodPath="/monashfriendfinder.mffprofile/" + studentid;
+        try {
+            Gson gson =new Gson();
+            String stringProfileJson=gson.toJson(profile);
+            System.out.print(stringProfileJson);
+            url = new URL(BASE_URI + methodPath);
+            //open the connection
+            conn = (HttpURLConnection) url.openConnection();
+            //set the timeout
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            //set the connection method to PUT
+            conn.setRequestMethod("PUT");
+            //set the output to true
+            conn.setDoOutput(true);
+            //set length of the data you want to send
+            conn.setFixedLengthStreamingMode(stringProfileJson.getBytes().length);
+            //add HTTP headers
+            conn.setRequestProperty("Content-Type", "application/json");
+            //Send the POST out
+            PrintWriter out= new PrintWriter(conn.getOutputStream());
+            out.print(stringProfileJson);
+            out.close();
+            Log.i("code",new Integer(conn.getResponseCode()).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
+        }
     }
 }

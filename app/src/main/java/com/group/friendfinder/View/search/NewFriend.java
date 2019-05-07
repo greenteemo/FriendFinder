@@ -28,6 +28,10 @@ import java.util.regex.Pattern;
 
 public class NewFriend extends AppCompatActivity {
 
+    private String getProfileStr = "";
+    private Profile profile1;
+    private Profile profile2;
+
     private TextView new_friend_show_first_name,new_friend_show_surname,
             new_friend_show_birthday,new_friend_show_gender,new_friend_show_course,new_friend_show_study_mode,new_friend_show_address,
             new_friend_show_suburb,new_friend_show_nationality,new_friend_show_native_language,new_friend_show_favourite_sport,
@@ -36,15 +40,12 @@ public class NewFriend extends AppCompatActivity {
     private int stuid,mode;
     private String newfriend;
     private Toolbar toolbar;
-    private String getProfileStr = "";
-    private Profile profile1;
-    private Profile profile2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_friend);
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         new_friend_show_first_name = findViewById(R.id.new_friend_show_first_name);
         new_friend_show_surname = findViewById(R.id.new_friend_show_surname);
         new_friend_show_birthday = findViewById(R.id.new_friend_show_birthday);
@@ -81,16 +82,23 @@ public class NewFriend extends AppCompatActivity {
                 SharedPreferences spStudentid = getSharedPreferences("spStudentid",
                         Context.MODE_PRIVATE);
                 String sid = spStudentid.getString("Studentid", "");
-                if(mode == 0){
-                    String startDate = "2019-05-05T00:00:00+08:00";
-                    String endDate = "";
-                    new postFriendshipAsync().execute(sid, stuid+"", startDate, endDate);
-                    Toast.makeText(NewFriend.this, "you add a new friend successfully", Toast.LENGTH_LONG);
-                }else{
-                    String friendshipid = spStudentid + "_" + sid;
-                    new deleteFriendAsyncTask().execute(friendshipid);
-                    Toast.makeText(NewFriend.this, "you delete a new friend successfully", Toast.LENGTH_LONG);
-                }
+                Integer stuid = intent.getIntExtra("stuid",0);
+                String startDate = "2019-05-05T00:00:00+08:00";
+                String endDate = "";
+                new postFriendshipAsync().execute(sid, stuid+"", startDate, endDate);
+
+//                SharedPreferences spHttpCode = getSharedPreferences("spHttpCode", Context.MODE_PRIVATE);
+//                String httpcode = spHttpCode.getString("httpcode", "");
+//                System.out.println("----------" + httpcode + "-------");
+//                if(httpcode == "204" || httpcode == "200"){ // todo
+//                    System.out.println("you add a new friend successfully");
+//                    final Toast toast = Toast.makeText(NewFriend.this,"you add a new friend successfully",Toast.LENGTH_LONG);
+//                    toast.show();
+//                }else{
+//                    System.out.println("failed to add, please try again!");
+//                    final Toast toast  = Toast.makeText(NewFriend.this,"failed to add, please try again!",Toast.LENGTH_LONG);
+//                    toast.show();
+//                }
             }
         });
         new_friend_show_favourite_movie.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +146,7 @@ public class NewFriend extends AppCompatActivity {
             }
         }
     }
+
     private class postFriendshipAsync extends AsyncTask<String, Void, String> {
 
         @Override
@@ -237,7 +246,14 @@ public class NewFriend extends AppCompatActivity {
             }
 
             Friendship friendship = new Friendship(Integer.parseInt(params[0]) + "_" + Integer.parseInt(params[1]), params[2], params[3], profile1, profile2);
-            RestClient.postFriendship(friendship);
+            String code = RestClient.postFriendship(friendship);
+
+            SharedPreferences spHttpCode = getSharedPreferences("spHttpCode",
+                    Context.MODE_PRIVATE);
+            SharedPreferences.Editor eHttpCode = spHttpCode.edit();
+            eHttpCode.putString("httpcode", code);
+            eHttpCode.commit();
+
             return "Friendship was added";
         }
 
@@ -247,6 +263,7 @@ public class NewFriend extends AppCompatActivity {
             System.out.println(response);
         }
     }
+
     private class getStudentAsync extends AsyncTask<Integer, Void, String> {
 
         protected String doInBackground(Integer... params) {
@@ -258,19 +275,6 @@ public class NewFriend extends AppCompatActivity {
         protected void onPostExecute(String students) {
             System.out.println(students);
             getProfileStr = students;
-        }
-    }
-    private class deleteFriendAsyncTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-            RestClient.deleteFriend(params[0]);
-            return "Friendship was deleted";
-        }
-
-        @Override
-        protected void onPostExecute(String ret) {
-            System.out.println(ret);
         }
     }
 }
