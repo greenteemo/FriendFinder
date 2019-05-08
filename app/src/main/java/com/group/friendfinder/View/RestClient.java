@@ -2,6 +2,7 @@ package com.group.friendfinder.View;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -14,6 +15,8 @@ import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // import com.google.gson.Gson;
 
@@ -342,7 +345,7 @@ public class RestClient {
     }
 
     // get student by id
-    public static String getStudents(Integer id) {
+    public static String getStudent(Integer id) {
         final String methodPath = "/monashfriendfinder.mffprofile/findByStudentid/" + id;
         //initialise
         URL url = null;
@@ -443,5 +446,78 @@ public class RestClient {
         } finally {
             conn.disconnect();
         }
+    }
+
+    // create profile by studentid
+    public static Profile createProfile(String studentid){
+        Profile profile = new Profile();
+
+        String patternsmonashEmail = "\"smonashEmail\":\"(.*?)\"";
+        String patternspassword = "\"spassword\":\"(.*?)\"";
+        String patternfirstname = "\"firstname\":\"(.*?)\"";
+        String patternsurname = "\"surname\":\"(.*?)\"";
+        String patterndateOfBirth = "\"dateOfBirth\":\"(.*?)\"";
+        String patterngender = "\"gender\":\"(.*?)\"";
+        String patternnationality = "\"nationality\":\"(.*?)\"";
+        String patternnativeLanguage = "\"nativeLanguage\":\"(.*?)\"";
+        String patternaddress = "\"address\":\"(.*?)\"";
+        String patternsuburb = "\"suburb\":\"(.*?)\"";
+        String patterncourse = "\"course\":\"(.*?)\"";
+        String patternstudyMode = "\"studyMode\":\"(.*?)\"";
+        String patternjob = "\"job\":\"(.*?)\"";
+        String patternfavorSport = "\"favorSport\":\"(.*?)\"";
+        String patternfavorMovie = "\"favorMovie\":\"(.*?)\"";
+        String patternfavorUnit = "\"favorUnit\":\"(.*?)\"";
+        String patternsubscribeData = "\"subscribeData\":\"(.*?)\"";
+        String patternsubscribeTime = "\"subscribeTime\":\"(.*?)\"";
+
+        // Create a Pattern object
+        Pattern rsmonashEmail = Pattern.compile(patternsmonashEmail);
+        Pattern rspassword = Pattern.compile(patternspassword);
+        Pattern rfirstname = Pattern.compile(patternfirstname);
+        Pattern rsurname = Pattern.compile(patternsurname);
+        Pattern rdateOfBirth = Pattern.compile(patterndateOfBirth);
+        Pattern rgender = Pattern.compile(patterngender);
+        Pattern rnationality = Pattern.compile(patternnationality);
+        Pattern rnativeLanguage = Pattern.compile(patternnativeLanguage);
+        Pattern raddress = Pattern.compile(patternaddress);
+        Pattern rsuburb = Pattern.compile(patternsuburb);
+        Pattern rcourse = Pattern.compile(patterncourse);
+        Pattern rstudyMode = Pattern.compile(patternstudyMode);
+        Pattern rjob = Pattern.compile(patternjob);
+        Pattern rfavorSport = Pattern.compile(patternfavorSport);
+        Pattern rfavorMovie = Pattern.compile(patternfavorMovie);
+        Pattern rfavorUnit = Pattern.compile(patternfavorUnit);
+        Pattern rsubscribeData = Pattern.compile(patternsubscribeData);
+        Pattern rsubscribeTime = Pattern.compile(patternsubscribeTime);
+
+        String studentInfo = getStudent(Integer.parseInt(studentid));
+        System.out.println(studentInfo);
+
+        // Now create matcher object.
+        Matcher msmonashEmail = rsmonashEmail.matcher(studentInfo);
+        Matcher mspassword = rspassword.matcher(studentInfo);
+        Matcher mfirstname = rfirstname.matcher(studentInfo);
+        Matcher msurname = rsurname.matcher(studentInfo);
+        Matcher mdateOfBirth = rdateOfBirth.matcher(studentInfo);
+        Matcher mgender = rgender.matcher(studentInfo);
+        Matcher mnationality = rnationality.matcher(studentInfo);
+        Matcher mnativeLanguage = rnativeLanguage.matcher(studentInfo);
+        Matcher maddress = raddress.matcher(studentInfo);
+        Matcher msuburb = rsuburb.matcher(studentInfo);
+        Matcher mcourse = rcourse.matcher(studentInfo);
+        Matcher mstudyMode = rstudyMode.matcher(studentInfo);
+        Matcher mjob = rjob.matcher(studentInfo);
+        Matcher mfavorSport = rfavorSport.matcher(studentInfo);
+        Matcher mfavorMovie = rfavorMovie.matcher(studentInfo);
+        Matcher mfavorUnit = rfavorUnit.matcher(studentInfo);
+        Matcher msubscribeData = rsubscribeData.matcher(studentInfo);
+        Matcher msubscribeTime = rsubscribeTime.matcher(studentInfo);
+        if(msmonashEmail.find() && mspassword.find() && mfirstname.find() && msurname.find() && mdateOfBirth.find() && mgender.find() && mnationality.find() && mnativeLanguage.find() && maddress.find() && msuburb.find() && mcourse.find() && mstudyMode.find() && mjob.find() && mfavorSport.find() && mfavorMovie.find() && mfavorUnit.find() && msubscribeData.find() && msubscribeTime.find()){
+            System.out.println(studentInfo);
+            profile = new Profile(Integer.parseInt(studentid), msmonashEmail.group(1), mspassword.group(1), mfirstname.group(1), msurname.group(1), mdateOfBirth.group(1), mgender.group(1).charAt(0), mnationality.group(1), mnativeLanguage.group(1), maddress.group(1), msuburb.group(1), mcourse.group(1), mstudyMode.group(1).charAt(0), mjob.group(1), mfavorSport.group(1), mfavorMovie.group(1), mfavorUnit.group(1), msubscribeData.group(1), msubscribeTime.group(1));
+            return profile;
+        }
+        return profile;
     }
 }

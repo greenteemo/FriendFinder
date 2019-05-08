@@ -117,7 +117,7 @@ public class NewFriend extends AppCompatActivity {
             this.stuid = stuid;
         }
         protected String doInBackground(Integer... params) {
-            return RestClient.getStudents(stuid);
+            return RestClient.getStudent(stuid);
         }
 
         /** The system calls this to perform work in the UI thread and delivers
@@ -151,101 +151,12 @@ public class NewFriend extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            // construct Profile by studentid
-//            public String getProfileStr = "";  记得在开头声明
+            Profile profile1 = RestClient.createProfile(params[0]);
+            Profile profile2 = RestClient.createProfile(params[1]);
 
-
-            String patternsmonashEmail = "\"smonashEmail\":\"(.*?)\"";
-            String patternspassword = "\"spassword\":\"(.*?)\"";
-            String patternfirstname = "\"firstname\":\"(.*?)\"";
-            String patternsurname = "\"surname\":\"(.*?)\"";
-            String patterndateOfBirth = "\"dateOfBirth\":\"(.*?)\"";
-            String patterngender = "\"gender\":\"(.*?)\"";
-            String patternnationality = "\"nationality\":\"(.*?)\"";
-            String patternnativeLanguage = "\"nativeLanguage\":\"(.*?)\"";
-            String patternaddress = "\"address\":\"(.*?)\"";
-            String patternsuburb = "\"suburb\":\"(.*?)\"";
-            String patterncourse = "\"course\":\"(.*?)\"";
-            String patternstudyMode = "\"studyMode\":\"(.*?)\"";
-            String patternjob = "\"job\":\"(.*?)\"";
-            String patternfavorSport = "\"favorSport\":\"(.*?)\"";
-            String patternfavorMovie = "\"favorMovie\":\"(.*?)\"";
-            String patternfavorUnit = "\"favorUnit\":\"(.*?)\"";
-            String patternsubscribeData = "\"subscribeData\":\"(.*?)\"";
-            String patternsubscribeTime = "\"subscribeTime\":\"(.*?)\"";
-
-            // Create a Pattern object
-            Pattern rsmonashEmail = Pattern.compile(patternsmonashEmail);
-            Pattern rspassword = Pattern.compile(patternspassword);
-            Pattern rfirstname = Pattern.compile(patternfirstname);
-            Pattern rsurname = Pattern.compile(patternsurname);
-            Pattern rdateOfBirth = Pattern.compile(patterndateOfBirth);
-            Pattern rgender = Pattern.compile(patterngender);
-            Pattern rnationality = Pattern.compile(patternnationality);
-            Pattern rnativeLanguage = Pattern.compile(patternnativeLanguage);
-            Pattern raddress = Pattern.compile(patternaddress);
-            Pattern rsuburb = Pattern.compile(patternsuburb);
-            Pattern rcourse = Pattern.compile(patterncourse);
-            Pattern rstudyMode = Pattern.compile(patternstudyMode);
-            Pattern rjob = Pattern.compile(patternjob);
-            Pattern rfavorSport = Pattern.compile(patternfavorSport);
-            Pattern rfavorMovie = Pattern.compile(patternfavorMovie);
-            Pattern rfavorUnit = Pattern.compile(patternfavorUnit);
-            Pattern rsubscribeData = Pattern.compile(patternsubscribeData);
-            Pattern rsubscribeTime = Pattern.compile(patternsubscribeTime);
-
-            new getStudentAsync().execute(Integer.parseInt(params[0]));
-            // Now create matcher object.
-            Matcher msmonashEmail = rsmonashEmail.matcher(getProfileStr);
-            Matcher mspassword = rspassword.matcher(getProfileStr);
-            Matcher mfirstname = rfirstname.matcher(getProfileStr);
-            Matcher msurname = rsurname.matcher(getProfileStr);
-            Matcher mdateOfBirth = rdateOfBirth.matcher(getProfileStr);
-            Matcher mgender = rgender.matcher(getProfileStr);
-            Matcher mnationality = rnationality.matcher(getProfileStr);
-            Matcher mnativeLanguage = rnativeLanguage.matcher(getProfileStr);
-            Matcher maddress = raddress.matcher(getProfileStr);
-            Matcher msuburb = rsuburb.matcher(getProfileStr);
-            Matcher mcourse = rcourse.matcher(getProfileStr);
-            Matcher mstudyMode = rstudyMode.matcher(getProfileStr);
-            Matcher mjob = rjob.matcher(getProfileStr);
-            Matcher mfavorSport = rfavorSport.matcher(getProfileStr);
-            Matcher mfavorMovie = rfavorMovie.matcher(getProfileStr);
-            Matcher mfavorUnit = rfavorUnit.matcher(getProfileStr);
-            Matcher msubscribeData = rsubscribeData.matcher(getProfileStr);
-            Matcher msubscribeTime = rsubscribeTime.matcher(getProfileStr);
-            if(msmonashEmail.find() && mspassword.find() && mfirstname.find() && msurname.find() && mdateOfBirth.find() && mgender.find() && mnationality.find() && mnativeLanguage.find() && maddress.find() && msuburb.find() && mcourse.find() && mstudyMode.find() && mjob.find() && mfavorSport.find() && mfavorMovie.find() && mfavorUnit.find() && msubscribeData.find() && msubscribeTime.find()){
-                System.out.println(getProfileStr);
-                profile1 = new Profile(Integer.parseInt(params[0]), msmonashEmail.group(1), mspassword.group(1), mfirstname.group(1), msurname.group(1), mdateOfBirth.group(1), mgender.group(1).charAt(0), mnationality.group(1), mnativeLanguage.group(1), maddress.group(1), msuburb.group(1), mcourse.group(1), mstudyMode.group(1).charAt(0), mjob.group(1), mfavorSport.group(1), mfavorMovie.group(1), mfavorUnit.group(1), msubscribeData.group(1), msubscribeTime.group(1));
-            }
-
-            new getStudentAsync().execute(Integer.parseInt(params[1]));
-            msmonashEmail = rsmonashEmail.matcher(getProfileStr);
-            mspassword = rspassword.matcher(getProfileStr);
-            mfirstname = rfirstname.matcher(getProfileStr);
-            msurname = rsurname.matcher(getProfileStr);
-            mdateOfBirth = rdateOfBirth.matcher(getProfileStr);
-            mgender = rgender.matcher(getProfileStr);
-            mnationality = rnationality.matcher(getProfileStr);
-            mnativeLanguage = rnativeLanguage.matcher(getProfileStr);
-            maddress = raddress.matcher(getProfileStr);
-            msuburb = rsuburb.matcher(getProfileStr);
-            mcourse = rcourse.matcher(getProfileStr);
-            mstudyMode = rstudyMode.matcher(getProfileStr);
-            mjob = rjob.matcher(getProfileStr);
-            mfavorSport = rfavorSport.matcher(getProfileStr);
-            mfavorMovie = rfavorMovie.matcher(getProfileStr);
-            mfavorUnit = rfavorUnit.matcher(getProfileStr);
-            msubscribeData = rsubscribeData.matcher(getProfileStr);
-            msubscribeTime = rsubscribeTime.matcher(getProfileStr);
-
-            if(msmonashEmail.find() && mspassword.find() && mfirstname.find() && msurname.find() && mdateOfBirth.find() && mgender.find() && mnationality.find() && mnativeLanguage.find() && maddress.find() && msuburb.find() && mcourse.find() && mstudyMode.find() && mjob.find() && mfavorSport.find() && mfavorMovie.find() && mfavorUnit.find() && msubscribeData.find() && msubscribeTime.find()){
-                System.out.println(getProfileStr);
-                profile2 = new Profile(Integer.parseInt(params[1]), msmonashEmail.group(1), mspassword.group(1), mfirstname.group(1), msurname.group(1), mdateOfBirth.group(1), mgender.group(1).charAt(0), mnationality.group(1), mnativeLanguage.group(1), maddress.group(1), msuburb.group(1), mcourse.group(1), mstudyMode.group(1).charAt(0), mjob.group(1), mfavorSport.group(1), mfavorMovie.group(1), mfavorUnit.group(1), msubscribeData.group(1), msubscribeTime.group(1));
-                System.out.println(profile2.getFirstname());
-            }
-
-            Friendship friendship = new Friendship(Integer.parseInt(params[0]) + "_" + Integer.parseInt(params[1]), params[2], params[3], profile1, profile2);
+            Integer sid = Integer.parseInt(params[0]), fid = Integer.parseInt(params[1]);
+            String friendshipid = sid < fid ? sid + "_" + fid : fid + "_" + sid;
+            Friendship friendship = new Friendship(friendshipid, params[2], params[3], profile1, profile2);
             String code = RestClient.postFriendship(friendship);
 
             SharedPreferences spHttpCode = getSharedPreferences("spHttpCode",
@@ -261,20 +172,6 @@ public class NewFriend extends AppCompatActivity {
          * the result from doInBackground() */
         protected void onPostExecute(String response) {
             System.out.println(response);
-        }
-    }
-
-    private class getStudentAsync extends AsyncTask<Integer, Void, String> {
-
-        protected String doInBackground(Integer... params) {
-            return RestClient.getStudents(params[0]);
-        }
-
-        /** The system calls this to perform work in the UI thread and delivers
-         * the result from doInBackground() */
-        protected void onPostExecute(String students) {
-            System.out.println(students);
-            getProfileStr = students;
         }
     }
 }

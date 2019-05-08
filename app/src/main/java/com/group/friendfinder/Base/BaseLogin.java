@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.group.friendfinder.Location;
+import com.group.friendfinder.Profile;
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.MainActivity;
 import com.group.friendfinder.View.RestClient;
@@ -50,7 +52,6 @@ public class BaseLogin extends Activity {
 
 
 
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -83,13 +84,13 @@ public class BaseLogin extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etsound_help = (TextView) findViewById(R.id.sound_help);
+        etsound_help = findViewById(R.id.sound_help);
 //获取编辑框
-        etaccount = (EditText) findViewById(R.id.accountEdittext);
-        etpwd = (EditText) findViewById(R.id.pwdEdittext);
+        etaccount = findViewById(R.id.accountEdittext);
+        etpwd = findViewById(R.id.pwdEdittext);
 //获取按钮
-        bnlogin = (Button) findViewById(R.id.resetpwd_btn_sure);
-        bnsub = (Button) findViewById(R.id.sub);
+        bnlogin = findViewById(R.id.resetpwd_btn_sure);
+        bnsub = findViewById(R.id.sub);
         bnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +111,7 @@ public class BaseLogin extends Activity {
 
         @Override
         protected void onPostExecute(String ret) {
+            System.out.println(ret);
             super.onPostExecute(ret);
             if(ret != null){
                 SharedPreferences spUserInfo = getSharedPreferences("spUserInfo",
@@ -142,6 +144,19 @@ public class BaseLogin extends Activity {
 
             }
         }
-
     }
+
+//    class postLocAsyncTask extends AsyncTask<String, Void, String> {
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//
+//            Location loc = new Location(second+minute*100+hour*10000+day*1000000+month*100000000, Profile studentid, String locationName, Double latitude, Double longitude, String updateDate, String updateTime);
+//            RestClient.postLocation(loc);
+//            return "Location is added";
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String ret) {}
+//    }
 }
