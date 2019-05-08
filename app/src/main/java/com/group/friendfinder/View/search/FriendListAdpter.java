@@ -77,7 +77,6 @@ public class FriendListAdpter extends BaseAdapter {
                 JSONObject mobj_temp = mobj.getJSONObject("ffriendid");
                 Integer stuid = mobj_temp.getInt("studentid");
                 if(stuid - sid == 0){
-                    System.out.println("----------"+stuid+"----------"+sid);
                     mobj = mobj.getJSONObject("fstudentid");
                 }else{
                     mobj = mobj_temp;

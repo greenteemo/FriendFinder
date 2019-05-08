@@ -121,16 +121,22 @@ public class BaseLogin extends Activity {
                 eUserInfo.commit();
 
                 String pattern1 = "\"studentid\":(.*?),\"";
+                String pattern2 = "\"firstname\":\"(.*?)\"";
                 // Create a Pattern object
                 Pattern r1 = Pattern.compile(pattern1);
+                Pattern r2 = Pattern.compile(pattern2);
                 // Now create matcher object.
                 Matcher m1 = r1.matcher(ret);
-                if(m1.find()){
+                Matcher m2 = r2.matcher(ret);
+                if(m1.find() && m2.find()){
                     SharedPreferences spStudentid = getSharedPreferences("spStudentid",
                             Context.MODE_PRIVATE);
                     SharedPreferences.Editor eStudentid = spStudentid.edit();
                     eStudentid.putString("Studentid", m1.group(1));
+                    eStudentid.putString("firstname", m2.group(1));
                     eStudentid.commit();
+
+//                    new postLocAsyncTask().execute();
 
                     Intent intent = new Intent(BaseLogin.this, MainActivity.class);
                     startActivity(intent);
@@ -146,17 +152,33 @@ public class BaseLogin extends Activity {
         }
     }
 
-//    class postLocAsyncTask extends AsyncTask<String, Void, String> {
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//
-//            Location loc = new Location(second+minute*100+hour*10000+day*1000000+month*100000000, Profile studentid, String locationName, Double latitude, Double longitude, String updateDate, String updateTime);
-//            RestClient.postLocation(loc);
-//            return "Location is added";
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String ret) {}
-//    }
+    class postLocAsyncTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            // get sid
+            SharedPreferences spStudentid = getSharedPreferences("spStudentid",
+                    Context.MODE_PRIVATE);
+            String sid = spStudentid.getString("Studentid", "");
+            // create profile
+            Profile profile = RestClient.createProfile(sid);
+            // get date & time
+            String mm = month >= 10 ? month+"" : "0"+month;
+            String dd = day >= 10 ? day+"" : "0"+day;
+            String curDate = year+"-"+mm+"-"+dd+"T00:00:00+08:00";
+            String hh = hour >= 10 ? hour+"" : "0"+hour;
+            String MM = minute >= 10 ? minute+"" : "0"+minute;
+            String ss = second >= 10 ? second+"" : "0"+second;
+            String curTime = "1970-01-01T" + hh + ":" + MM + ":" + ss + "+08:00";
+
+            Location loc = new Location(second+minute*100+hour*10000+day*1000000+month*100000000, profile, "Suzhou", 25.0, 52.0, curDate, curTime);
+            RestClient.postLocation(loc);
+            return "Location is added";
+        }
+
+        @Override
+        protected void onPostExecute(String ret) {
+            System.out.println(ret);
+        }
+    }
 }
