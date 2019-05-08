@@ -36,16 +36,6 @@
             android:paddingStart="@dimen/bb_default_elevation">
 
             <TextView
-                android:id="@+id/profile_email"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:gravity="center_vertical"
-                android:text="@string/profile_email"
-                android:textColor="@color/bb_darkBackgroundColor"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/profile_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -194,14 +184,6 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/profile_edit_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/search_whatever"
-                android:inputType="textPersonName" />
-
-            <EditText
                 android:id="@+id/profile_edit_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -263,12 +245,10 @@
                 android:hint="@string/search_whatever"
                 android:inputType="textPersonName" />
 
-            <Spinner
+            <EditText
                 android:id="@+id/profile_edit_nationality"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:entries="@array/search_countries"
-                android:spinnerMode="dropdown" />
+                android:layout_height="45dp" />
 
             <EditText
                 android:id="@+id/profile_edit_native_language"

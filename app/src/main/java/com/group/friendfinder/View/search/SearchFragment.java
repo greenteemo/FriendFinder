@@ -27,16 +27,16 @@ public class SearchFragment extends BaseLazyLoadFragment{
         search_surname,
         search_birthday,
         search_gender,
-        search_course,
-        search_study_mode,
-        search_address,
-        search_suburb,
         search_nationality,
         search_native_language,
+        search_address,
+        search_suburb,
+        search_course,
+        search_study_mode,
+        search_current_job,
         search_favourite_sport,
         search_favourite_movie,
         search_favourite_unit,
-        search_current_job,
     }
     private Button mbtn1;
 
