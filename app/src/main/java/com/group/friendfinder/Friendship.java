@@ -11,7 +11,7 @@ public class Friendship {
     public Friendship() {
     }
 
-    public Friendship(String friendshipid, String startingDate, String endingDate, Profile ffriendid, Profile fstudentid) {
+    public Friendship(String friendshipid, String startingDate, String endingDate, Profile fstudentid, Profile ffriendid) {
         this.friendshipid = friendshipid;
         this.startingDate = startingDate;
         this.endingDate = endingDate;

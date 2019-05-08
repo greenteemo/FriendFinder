@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,9 +32,6 @@ public class FriendListAdpter extends BaseAdapter {
     private Context mContext;
     private int mode = 0;
     private LayoutInflater mlayoutinflater;
-    private String getProfileStr = "";
-    private Profile profile1;
-    private Profile profile2;
 
     public FriendListAdpter(JSONArray jsonArray, Context context, int mode){
         this.mArray = jsonArray;
@@ -72,8 +70,20 @@ public class FriendListAdpter extends BaseAdapter {
         mholder.mTextMore.setText("DETAILS");
         try {
             JSONObject mobj = mArray.getJSONObject(position);
+            SharedPreferences spStudentid = mContext.getSharedPreferences("spStudentid",
+                    Context.MODE_PRIVATE);
+            final Integer sid = Integer.parseInt(spStudentid.getString("Studentid", ""));
             if(mode == 1) {
-                mobj = mobj.getJSONObject("ffriendid");
+                JSONObject mobj_temp = mobj.getJSONObject("ffriendid");
+                Integer stuid = mobj_temp.getInt("studentid");
+                if(stuid - sid == 0){
+                    System.out.println("----------"+stuid+"----------"+sid);
+                    mobj = mobj.getJSONObject("fstudentid");
+                }else{
+                    mobj = mobj_temp;
+                }
+//                // if sid > stuid, then the friend is in fstudentid
+//                mobj = sid > stuid ? mobj.getJSONObject("fstudentid") : mobj.getJSONObject("ffriendid");
             }
             final int stuid = mobj.getInt("studentid");
             mholder.mTextName.setText(mobj.getString("firstname") + " " + mobj.getString("surname"));
@@ -90,16 +100,20 @@ public class FriendListAdpter extends BaseAdapter {
             mholder.mTextApply.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SharedPreferences spStudentid = mContext.getSharedPreferences("spStudentid",
-                                Context.MODE_PRIVATE);
-                    String sid = spStudentid.getString("Studentid", "");
                     if(mode == 0) {
-                        String startDate = "2019-05-05T00:00:00+08:00";
-                        String endDate = "";
-                        new postFriendshipAsync().execute(sid, stuid + "", startDate, endDate);
+                        Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH)+1;
+                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                        String mm = month >= 10 ? month+"" : "0"+month;
+                        String dd = day >= 10 ? day+"" : "0"+day;
+                        String startDate = year+"-"+mm+"-"+dd+"T00:00:00+08:00", endDate = "";
+                        new postFriendshipAsync().execute(sid.toString(), stuid + "", startDate, endDate);
                         Toast.makeText(mContext, "you add a new friend successfully", Toast.LENGTH_LONG);
                     }else {
-                        String friendshipid = spStudentid + "_" + sid;
+                        Integer fsid = sid, ffid = stuid;
+                        String friendshipid = fsid < ffid ? fsid + "_" + ffid : ffid + "_" + fsid;
                         new deleteFriendAsyncTask().execute(friendshipid);
                         Toast.makeText(mContext, "you delete a new friend successfully", Toast.LENGTH_LONG);
                     }
@@ -125,19 +139,22 @@ public class FriendListAdpter extends BaseAdapter {
         @Override
         protected String doInBackground(String... params) {
             // construct Profile by studentid
+            Friendship friendship;
             Profile profile1 = RestClient.createProfile(params[0]);
             Profile profile2 = RestClient.createProfile(params[1]);
 
             Integer sid = Integer.parseInt(params[0]), fid = Integer.parseInt(params[1]);
             String friendshipid = sid < fid ? sid + "_" + fid : fid + "_" + sid;
-            Friendship friendship = new Friendship(friendshipid, params[2], params[3], profile1, profile2);
+            if(sid > fid){
+                friendship = new Friendship(friendshipid, params[2], params[3], profile2, profile1);
+            }else{
+                friendship = new Friendship(friendshipid, params[2], params[3], profile1, profile2);
+            }
 
             RestClient.postFriendship(friendship);
             return "Friendship was added";
         }
 
-        /** The system calls this to perform work in the UI thread and delivers
-         * the result from doInBackground() */
         protected void onPostExecute(String response) {
             System.out.println(response);
         }

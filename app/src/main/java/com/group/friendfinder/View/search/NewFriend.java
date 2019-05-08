@@ -28,10 +28,6 @@ import java.util.regex.Pattern;
 
 public class NewFriend extends AppCompatActivity {
 
-    private String getProfileStr = "";
-    private Profile profile1;
-    private Profile profile2;
-
     private TextView new_friend_show_first_name,new_friend_show_surname,
             new_friend_show_birthday,new_friend_show_gender,new_friend_show_course,new_friend_show_study_mode,new_friend_show_address,
             new_friend_show_suburb,new_friend_show_nationality,new_friend_show_native_language,new_friend_show_favourite_sport,
@@ -120,8 +116,6 @@ public class NewFriend extends AppCompatActivity {
             return RestClient.getStudent(stuid);
         }
 
-        /** The system calls this to perform work in the UI thread and delivers
-         * the result from doInBackground() */
         protected void onPostExecute(String ret) {
             newfriend = ret;
             try{
@@ -151,12 +145,17 @@ public class NewFriend extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
+            Friendship friendship;
             Profile profile1 = RestClient.createProfile(params[0]);
             Profile profile2 = RestClient.createProfile(params[1]);
 
             Integer sid = Integer.parseInt(params[0]), fid = Integer.parseInt(params[1]);
             String friendshipid = sid < fid ? sid + "_" + fid : fid + "_" + sid;
-            Friendship friendship = new Friendship(friendshipid, params[2], params[3], profile1, profile2);
+            if(sid > fid){
+                friendship = new Friendship(friendshipid, params[2], params[3], profile2, profile1);
+            }else{
+                friendship = new Friendship(friendshipid, params[2], params[3], profile1, profile2);
+            }
             String code = RestClient.postFriendship(friendship);
 
             SharedPreferences spHttpCode = getSharedPreferences("spHttpCode",
@@ -168,8 +167,6 @@ public class NewFriend extends AppCompatActivity {
             return "Friendship was added";
         }
 
-        /** The system calls this to perform work in the UI thread and delivers
-         * the result from doInBackground() */
         protected void onPostExecute(String response) {
             System.out.println(response);
         }
