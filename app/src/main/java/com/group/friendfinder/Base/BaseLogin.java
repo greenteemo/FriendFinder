@@ -100,6 +100,14 @@ public class BaseLogin extends Activity {
                 new LoginAsyncTask().execute(username, pwd);
             }
         });
+        bnsub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent( BaseLogin.this,BaseSub.class);
+                BaseLogin.this.startActivity(mainIntent);
+                BaseLogin.this.finish();
+            }
+        });
     }
 
     class LoginAsyncTask extends AsyncTask<String, Void, String> {
