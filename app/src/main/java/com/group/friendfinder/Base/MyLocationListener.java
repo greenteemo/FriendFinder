@@ -8,9 +8,7 @@ import com.baidu.location.Poi;
 
 import java.util.List;
 
-/**
- * Created by ccy on 2018/7/31.
- */
+
 
 public class MyLocationListener implements BDLocationListener {
 
@@ -106,8 +104,11 @@ public class MyLocationListener implements BDLocationListener {
         Log.i("BaiduLocationApiDem", sb.toString());
 
         //现在已经定位成功，可以将定位的数据保存下来，Const就是保存数据的类
-        Const.LONGITUDE = location.getLongitude();
-        Const.LATITUDE = location.getLatitude();
+        double log = location.getLongitude();
+        double lat = location.getLatitude();
+        System.out.println("经纬度：");
+        System.out.println(String.format("%.6f", log));
+        System.out.println(String.format("%.6f", lat));
     }
 }
 
