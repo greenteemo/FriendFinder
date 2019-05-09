@@ -18,7 +18,6 @@ import com.group.friendfinder.R;
 import com.group.friendfinder.View.home.func.ChooseDate;
 import com.group.friendfinder.View.home.func.FavorUnitsPie;
 import com.group.friendfinder.View.home.func.GetMovieInfo;
-import com.group.friendfinder.View.home.func.LocationBarChart;
 import com.group.friendfinder.View.home.func.exampleActivity;
 
 import java.text.SimpleDateFormat;

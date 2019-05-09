@@ -1,6 +1,6 @@
 package com.group.friendfinder;
 
-public class Location {
+public class LocationClass {
     private Integer locationid;
     private Profile studentid;
     private String locationName;
@@ -9,10 +9,10 @@ public class Location {
     private String updateDate;
     private String updateTime;
 
-    public Location() {
+    public LocationClass() {
     }
 
-    public Location(Integer locationid, Profile studentid, String locationName, Double latitude, Double longitude, String updateDate, String updateTime) {
+    public LocationClass(Integer locationid, Profile studentid, String locationName, Double latitude, Double longitude, String updateDate, String updateTime) {
         this.locationid = locationid;
         this.studentid = studentid;
         this.locationName = locationName;

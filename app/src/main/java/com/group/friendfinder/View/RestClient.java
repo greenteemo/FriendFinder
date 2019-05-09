@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.group.friendfinder.Friendship;
-import com.group.friendfinder.Location;
+import com.group.friendfinder.LocationClass;
 import com.group.friendfinder.Profile;
 
 import java.io.PrintWriter;
@@ -59,7 +59,7 @@ public class RestClient {
         }
         return textResult;
     }
-    //monashfriendfinder.mfffriendship/findByStudentid/{studentid}
+
     /*
     Task4
     (e)
@@ -268,7 +268,7 @@ public class RestClient {
     /*
     post Location
      */
-    public static void postLocation(Location location){
+    public static void postLocation(LocationClass location){
         //initialise
         URL url = null;
         HttpURLConnection conn = null;
