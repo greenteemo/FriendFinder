@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -121,7 +122,40 @@ public class RestClient {
     (b) get students by keys
      */
     public static String getStudentsByKeys(Integer studentid, Integer smonashEmail, Integer spassword, Integer firstname, Integer surname, Integer dateOfBirth, Integer gender, Integer nationality, Integer nativeLanguage, Integer address, Integer suburb, Integer course, Integer studyMode, Integer job, Integer favorSport, Integer favorMovie, Integer favorUnit, Integer subscribeData, Integer subscribeTime) {
-        final String methodPath = "/monashfriendfinder.mffprofile/findByKeys/"+ studentid + "/" + smonashEmail + "/" + spassword + "/" + firstname + "/" + surname + "/" + dateOfBirth + "/" + gender + "/" + nationality + "/" + nativeLanguage + "/" + address + "/" + suburb + "/" + course + "/" + studyMode + "/" + job + "/" + favorSport + "/" + favorMovie + "/" + favorUnit + "/" + subscribeData + "/" + subscribeTime;
+        final String methodPath = "/monashfriendfinder.mffprofile/findByKeysNoFriend/"+ studentid + "/" + smonashEmail + "/" + spassword + "/" + firstname + "/" + surname + "/" + dateOfBirth + "/" + gender + "/" + nationality + "/" + nativeLanguage + "/" + address + "/" + suburb + "/" + course + "/" + studyMode + "/" + job + "/" + favorSport + "/" + favorMovie + "/" + favorUnit + "/" + subscribeData + "/" + subscribeTime;
+        //initialise
+        URL url = null;
+        HttpURLConnection conn = null;
+        String textResult = "";
+        //Making HTTP request
+        try {
+            url = new URL(BASE_URI + methodPath);
+            //open the connection
+            conn = (HttpURLConnection) url.openConnection();
+            //set the timeout
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(15000);
+            //set the connection method to GET
+            conn.setRequestMethod("GET");
+            //add http headers to set your response type to json
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+            //Read the response
+            Scanner inStream = new Scanner(conn.getInputStream());
+            //read the input steream and store it as string
+            while (inStream.hasNextLine()) {
+                textResult += inStream.nextLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
+        }
+        return textResult;
+    }
+
+    public static String getFriendsByKeys(Integer studentid, Integer smonashEmail, Integer spassword, Integer firstname, Integer surname, Integer dateOfBirth, Integer gender, Integer nationality, Integer nativeLanguage, Integer address, Integer suburb, Integer course, Integer studyMode, Integer job, Integer favorSport, Integer favorMovie, Integer favorUnit, Integer subscribeData, Integer subscribeTime) {
+        final String methodPath = "/monashfriendfinder.mffprofile/findByKeysOfFriend/"+ studentid + "/" + smonashEmail + "/" + spassword + "/" + firstname + "/" + surname + "/" + dateOfBirth + "/" + gender + "/" + nationality + "/" + nativeLanguage + "/" + address + "/" + suburb + "/" + course + "/" + studyMode + "/" + job + "/" + favorSport + "/" + favorMovie + "/" + favorUnit + "/" + subscribeData + "/" + subscribeTime;
         //initialise
         URL url = null;
         HttpURLConnection conn = null;
@@ -379,6 +413,31 @@ public class RestClient {
     }
 
     // get most recent location by studentid
+    public static ArrayList<ArrayList<Double>> getMostRecentLocs(ArrayList<Integer> studentids){
+        ArrayList<ArrayList<Double>> locs = new ArrayList<>();
+
+        System.out.println("---------"+studentids.size());
+        for(int i = 0; i < studentids.size(); i++){
+            ArrayList<Double> loc = new ArrayList<>();
+            String res = getMostRecentLoc(studentids.get(i));
+            String patternLat = "\"latitude\":(.*?),";
+            String patternLon = "\"longitude\":(.*?),";
+            // Create a Pattern object
+            Pattern rLat = Pattern.compile(patternLat);
+            Pattern rLon = Pattern.compile(patternLon);
+            // Now create matcher object.
+            Matcher mLat = rLat.matcher(res);
+            Matcher mLon = rLon.matcher(res);
+            if(mLat.find() && mLon.find()){
+                loc.add(Double.parseDouble(mLat.group(1)));
+                loc.add(Double.parseDouble(mLon.group(1)));
+            }
+            locs.add(loc);
+        }
+
+        return locs;
+    }
+
     public static String getMostRecentLoc(Integer studentid) {
         final String methodPath = "/monashfriendfinder.mfflocation/RecentLocation/" + studentid;
         //initialise
