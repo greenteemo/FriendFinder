@@ -51,7 +51,6 @@ public class BaseLogin extends Activity {
     int second = calendar.get(Calendar.SECOND);
 
 
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -83,6 +82,15 @@ public class BaseLogin extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        BDLocationUtils bdLocationUtils = new BDLocationUtils(BaseLogin.this);
+        bdLocationUtils.doLocation();//开启定位
+        bdLocationUtils.mLocationClient.start();//开始定位
+
+        double log = Const.LONGITUDE;
+        double lat = Const.LATITUDE;
+        System.out.println(String.format("%.6f", log));
+        System.out.println(String.format("%.6f", lat));
 
         etsound_help = findViewById(R.id.sound_help);
 //获取编辑框
