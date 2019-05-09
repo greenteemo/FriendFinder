@@ -13,6 +13,15 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
 
     <application
         android:name=".DemoApplication"
@@ -23,15 +32,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+
         <activity android:name=".View.search.NewFriend" />
 
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="djNWAPWGbrjWyL810xQD3Sa9EdLbr5pM" />
+            android:value="eztdXBAcq7BGBaG92N20aRil3rymb6Lr" />
+
 
         <activity android:name=".View.home.func.GetMovieInfo" />
         <activity android:name=".View.my.EditProfile" />
         <activity android:name=".Base.BaseLogin" />
+
+
         <activity android:name=".View.MainActivity" />
         <activity android:name=".Base.BaseStart">
             <intent-filter>
@@ -83,6 +98,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.search.ShowMap" />
         </activity>
+
     </application>
 
 </manifest>

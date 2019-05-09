@@ -1,13 +1,18 @@
 package com.group.friendfinder.Base;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,18 +20,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapView;
 import com.group.friendfinder.LocationClass;
 import com.group.friendfinder.Profile;
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.MainActivity;
 import com.group.friendfinder.View.RestClient;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 import java.util.Calendar;
-
 
 
 public class BaseLogin extends Activity {
@@ -50,6 +63,14 @@ public class BaseLogin extends Activity {
     //秒
     int second = calendar.get(Calendar.SECOND);
 
+
+    private MapView mMapView = null;
+
+    BaiduMap mBaiduMap;
+
+    public LocationClient mLocationclient;
+
+    private TextView postionTextView;
 
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -100,7 +121,94 @@ public class BaseLogin extends Activity {
                 new LoginAsyncTask().execute(username, pwd);
             }
         });
+        bnsub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent( BaseLogin.this,BaseSub.class);
+                BaseLogin.this.startActivity(mainIntent);
+                BaseLogin.this.finish();
+            }
+        });
+        super.onCreate(savedInstanceState);
+
+        mLocationclient = new LocationClient(getApplicationContext());
+//        监听位置的变化
+        mLocationclient.registerLocationListener(new MyLocationListener());
+        List<String> permissionList = new ArrayList<>();
+//        开启权限
+        if (ContextCompat.checkSelfPermission(BaseLogin.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (ContextCompat.checkSelfPermission(BaseLogin.this,Manifest.permission.READ_PHONE_STATE)
+                !=PackageManager.PERMISSION_GRANTED){
+            permissionList.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if (!permissionList.isEmpty()){
+            String[] permissions = permissionList.toArray(new String[permissionList.size()]);
+            ActivityCompat.requestPermissions(BaseLogin.this,permissions,1);
+        }else{
+            requestLocation();
+        }
     }
+
+    //    设置更新时间间隔
+    private void initLocation(){
+        LocationClientOption option = new LocationClientOption();
+//        option.setLocationMode(LocationClientOption.LocationMode.Device_Sensors);
+        option.setScanSpan(2000);
+        option.setIsNeedAddress(true);
+        mLocationclient.setLocOption(option);
+    }
+    //    开启定位并且初始化
+    private void requestLocation(){
+        initLocation();
+        mLocationclient.start();
+    }
+
+    //    请求权限之后返回数值
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode){
+            case 1:
+                if (grantResults.length>0){
+                    for (int result : grantResults){
+                        if (result != PackageManager.PERMISSION_GRANTED){
+                            Toast.makeText(this,"必须同意所有权限才能使用本程序",
+                                    Toast.LENGTH_SHORT).show();
+                            finish();
+                            return;
+                        }
+                    }
+                    requestLocation();
+                }else {
+                    Toast.makeText(this,"发生未知错误",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+            default:
+        }
+    }
+
+    //    监听器响应值
+    public class  MyLocationListener extends BDAbstractLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+
+            double log = bdLocation.getLatitude();
+
+            double lat = bdLocation.getLongitude();
+            System.out.println("经纬度：");
+            System.out.println(String.format("%.6f", log));
+            System.out.println(String.format("%.6f", lat));
+        }
+    }
+
+
+
+
 
     class LoginAsyncTask extends AsyncTask<String, Void, String> {
 
