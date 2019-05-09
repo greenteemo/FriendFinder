@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.group.friendfinder.Location;
+import com.group.friendfinder.LocationClass;
 import com.group.friendfinder.Profile;
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.MainActivity;
@@ -179,7 +179,7 @@ public class BaseLogin extends Activity {
             String ss = second >= 10 ? second+"" : "0"+second;
             String curTime = "1970-01-01T" + hh + ":" + MM + ":" + ss + "+08:00";
 
-            Location loc = new Location(second+minute*100+hour*10000+day*1000000+month*100000000, profile, "Suzhou", 25.0, 52.0, curDate, curTime);
+            LocationClass loc = new LocationClass(second+minute*100+hour*10000+day*1000000+month*100000000, profile, "Suzhou", 25.0, 52.0, curDate, curTime);
             RestClient.postLocation(loc);
             return "Location is added";
         }
