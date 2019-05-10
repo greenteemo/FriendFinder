@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = getIntent();
-        double log = intent.getDoubleExtra("Log",0);
-        double lat = intent.getDoubleExtra("Lat",0);
 
         mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);

@@ -45,7 +45,7 @@ public class HomeFragment extends BaseLazyLoadFragment{
     private TextView tv_wind;
 
     private double log, lat;
-    private String urlStr = "https://free-api.heweather.com/s6/weather/now?lang=en&key=766daf718ff14ed7840c74b476d9623d&location=";
+    private String urlStr = "https://free-api.heweather.com/s6/weather/now?lang=en&key=766daf718ff14ed7840c74b476d9623d&location=31.298886,120.58531600000003";
     //"https://free-api.heweather.com/s6/weather/now?lang=en&key=766daf718ff14ed7840c74b476d9623d&location=31.298886,120.58531600000003";
 
     private final Handler mHandler = new Handler()
@@ -125,6 +125,10 @@ public class HomeFragment extends BaseLazyLoadFragment{
 
 
         new MyLocationListener();
+
+        Intent intent = getActivity().getIntent();
+        log = intent.getDoubleExtra("Log",0);
+        lat = intent.getDoubleExtra("Lat",0);
         urlStr += log + "," + lat;
         new getWeatherAsyncTask().execute(urlStr);
 

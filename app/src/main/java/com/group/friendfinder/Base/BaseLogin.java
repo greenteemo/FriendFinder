@@ -246,7 +246,7 @@ public class BaseLogin extends Activity {
 
 //                    new postLocAsyncTask().execute();
 
-                    Intent intent = new Intent(BaseLogin.this, MainActivity.class);
+                    Intent intent = new Intent(BaseLogin.this, HomeFragment.class);
 
                     intent.putExtra("Log", Log);
                     intent.putExtra("Lat", Lat);
