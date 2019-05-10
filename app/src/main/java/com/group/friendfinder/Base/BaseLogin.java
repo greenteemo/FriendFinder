@@ -32,6 +32,7 @@ import com.group.friendfinder.Profile;
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.MainActivity;
 import com.group.friendfinder.View.RestClient;
+import com.group.friendfinder.View.home.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,10 +64,9 @@ public class BaseLogin extends Activity {
     //秒
     int second = calendar.get(Calendar.SECOND);
 
-
+    public double Log,Lat;
 
     private LocationClient mLocationclient;
-
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -195,7 +195,10 @@ public class BaseLogin extends Activity {
             double log = bdLocation.getLatitude();
 
             double lat = bdLocation.getLongitude();
-            System.out.println("经纬度：");
+
+            Log = bdLocation.getLongitude();
+            Lat = bdLocation.getLatitude();
+            System.out.println("登陆页面经纬度：");
             System.out.println(String.format("%.6f", log));
             System.out.println(String.format("%.6f", lat));
         }
@@ -244,6 +247,9 @@ public class BaseLogin extends Activity {
 //                    new postLocAsyncTask().execute();
 
                     Intent intent = new Intent(BaseLogin.this, MainActivity.class);
+
+                    intent.putExtra("Log", Log);
+                    intent.putExtra("Lat", Lat);
                     startActivity(intent);
                     finish();
                 }else{
