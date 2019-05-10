@@ -54,7 +54,7 @@
 
 
     <string name="home_data">data</string>
-    <string name="home_location">SuZhou</string>
-    <string name="home_temperature">Sunny day 16 deg</string>
-    <string name="home_wind">Wind: Northeast level 4</string>
+    <string name="home_location"> </string>
+    <string name="home_temperature"> </string>
+    <string name="home_wind"> </string>
 </resources>
