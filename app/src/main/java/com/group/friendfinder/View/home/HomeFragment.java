@@ -88,20 +88,6 @@ public class HomeFragment extends BaseLazyLoadFragment{
         }
     }
 
-    // 获取经纬度
-    private class  MyLocationListener extends BDAbstractLocationListener {
-
-        @Override
-        public void onReceiveLocation(BDLocation bdLocation) {
-
-            log = bdLocation.getLatitude();
-
-            lat = bdLocation.getLongitude();
-
-        }
-    }
-
-
     @Override
     protected void getData() {
 
@@ -123,17 +109,11 @@ public class HomeFragment extends BaseLazyLoadFragment{
         super.onCreate(savedInstanceState);
         new TimeThread().start();
 
-
-        new MyLocationListener();
-
         Intent intent = getActivity().getIntent();
         log = intent.getDoubleExtra("Log",0);
         lat = intent.getDoubleExtra("Lat",0);
         urlStr += log + "," + lat;
         new getWeatherAsyncTask().execute(urlStr);
-
-        System.out.println(log);
-        System.out.println(lat);
     }
 
     @Override
