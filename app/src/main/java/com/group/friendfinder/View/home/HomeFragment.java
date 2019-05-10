@@ -3,6 +3,7 @@ package com.group.friendfinder.View.home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,13 +21,27 @@ import com.group.friendfinder.View.home.func.FavorUnitsPie;
 import com.group.friendfinder.View.home.func.GetMovieInfo;
 import com.group.friendfinder.View.home.func.exampleActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class HomeFragment extends BaseLazyLoadFragment{
     private GridView gridView;
-
     private TextView txtTime;
+    private TextView tv_city;
+    private TextView tv_weather;
+    private TextView tv_wind;
+    private String urlStr = "https://free-api.heweather.com/s6/weather/now?lang=en&key=766daf718ff14ed7840c74b476d9623d&location=31.298886,120.58531600000003";
+
     private final Handler mHandler = new Handler()
     {
         @Override
@@ -89,16 +104,19 @@ public class HomeFragment extends BaseLazyLoadFragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new TimeThread().start();
+        new getWeatherAsyncTask().execute(urlStr);
     }
 
     @Override
     protected void initView(View mContentView) {
 
         txtTime = mContentView.findViewById(R.id.txtTime);
+        tv_city = mContentView.findViewById(R.id.txtWeather1);
+        tv_weather = mContentView.findViewById(R.id.txtWeather2);
+        tv_wind = mContentView.findViewById(R.id.txtWeather3);
 
         gridView = mContentView.findViewById(R.id.home_gridview);
         gridView.setAdapter(new HomeGridviewAdapter(getContext()));
-
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -131,9 +149,83 @@ public class HomeFragment extends BaseLazyLoadFragment{
                     case 5:
                         Intent intent5 = new Intent(getActivity(), ChooseDate.class);
                         startActivity(intent5);
-                        break;
+                        break;  //windows-x86_64\qemu-system-i386.exe: failed to initialize HAX: Invalid argument
                 }
             }
         });
+    }
+
+
+    class getWeatherAsyncTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return getURLResponse(strings[0]);
+        }
+
+
+        @Override
+        protected void onPostExecute(String ret) {
+            super.onPostExecute(ret);
+
+            try{
+                JSONObject jsonObject = new JSONObject(ret);
+                JSONArray jsonArray = jsonObject.getJSONArray("HeWeather6");
+                JSONObject allJsonObject = jsonArray.getJSONObject(0);
+
+                String status = allJsonObject.getString("status");
+                if (status.equals("ok")){
+                    JSONObject basic = allJsonObject.getJSONObject("basic");
+
+                    JSONObject update = allJsonObject.getJSONObject("update");
+                    JSONObject now = allJsonObject.getJSONObject("now");
+
+                    String city = "loc: " + basic.getString("parent_city");
+                    String wea = "weather: " + now.getString("cond_txt") + " " + now.getString("tmp") + "deg";
+                    String wind = "wind: " + now.getString("wind_dir") + " level " + now.getString("wind_sc");
+                    tv_city.setText(city);
+                    tv_weather.setText(wea);
+                    tv_wind.setText(wind);
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+    private String getURLResponse(String urlString){
+        HttpURLConnection conn = null;
+        InputStream in = null;
+        String responseStr = "";
+
+        try {
+            URL url = new URL(urlString);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(8000);
+            conn.setReadTimeout(8000);
+            //System.out.println(conn.getResponseCode());
+            in = conn.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            //response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null){
+                //response.append(line).append("\r\n");
+                responseStr += line + "\n";
+            }
+
+            reader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally{
+            if (conn != null){
+                conn.disconnect();
+            }
+        }
+
+        return responseStr;
     }
 }
