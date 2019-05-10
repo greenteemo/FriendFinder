@@ -14,8 +14,10 @@ public class HomeGridviewAdapter extends BaseAdapter{
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    int[] icon = {R.mipmap.ic_launcher, R.mipmap.home, R.mipmap.search, R.mipmap.movie, R.mipmap.pie, R.mipmap.bar};
-    String[] iconName = {"exampleActivity","faction1", "faction2", "movie temp", "Favorite Units", "Location BarChart"};
+//    int[] icon = {R.mipmap.ic_launcher, R.mipmap.home, R.mipmap.search, R.mipmap.movie, R.mipmap.pie, R.mipmap.bar};
+//    String[] iconName = {"exampleActivity","faction1", "faction2", "movie temp", "Favorite Units", "Location BarChart"};
+    int[] icon = {R.mipmap.movie, R.mipmap.pie, R.mipmap.bar};
+    String[] iconName = {"movie temp", "Favorite Units", "Location BarChart"};
 
     public HomeGridviewAdapter(Context context)
     {
