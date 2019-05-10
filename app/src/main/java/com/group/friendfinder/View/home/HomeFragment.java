@@ -14,7 +14,10 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
 import com.group.friendfinder.Base.BaseLazyLoadFragment;
+import com.group.friendfinder.Base.MyLocationListener;
 import com.group.friendfinder.R;
 import com.group.friendfinder.View.home.func.ChooseDate;
 import com.group.friendfinder.View.home.func.FavorUnitsPie;
@@ -40,15 +43,16 @@ public class HomeFragment extends BaseLazyLoadFragment{
     private TextView tv_city;
     private TextView tv_weather;
     private TextView tv_wind;
-    private String urlStr = "https://free-api.heweather.com/s6/weather/now?lang=en&key=766daf718ff14ed7840c74b476d9623d&location=31.298886,120.58531600000003";
+
+    private double log, lat;
+    private String urlStr = "https://free-api.heweather.com/s6/weather/now?lang=en&key=766daf718ff14ed7840c74b476d9623d&location=";
+    //"https://free-api.heweather.com/s6/weather/now?lang=en&key=766daf718ff14ed7840c74b476d9623d&location=31.298886,120.58531600000003";
 
     private final Handler mHandler = new Handler()
     {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-
-            //Weather weather = (Weather) msg.obj;
             switch (msg.what) {
                 case 1:
                     long time = System.currentTimeMillis();
@@ -84,6 +88,20 @@ public class HomeFragment extends BaseLazyLoadFragment{
         }
     }
 
+    // 获取经纬度
+    private class  MyLocationListener extends BDAbstractLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+
+            log = bdLocation.getLatitude();
+
+            lat = bdLocation.getLongitude();
+
+        }
+    }
+
+
     @Override
     protected void getData() {
 
@@ -104,6 +122,10 @@ public class HomeFragment extends BaseLazyLoadFragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new TimeThread().start();
+
+
+        new MyLocationListener();
+        urlStr += log + "," + lat;
         new getWeatherAsyncTask().execute(urlStr);
     }
 
@@ -176,7 +198,6 @@ public class HomeFragment extends BaseLazyLoadFragment{
                 String status = allJsonObject.getString("status");
                 if (status.equals("ok")){
                     JSONObject basic = allJsonObject.getJSONObject("basic");
-
                     JSONObject update = allJsonObject.getJSONObject("update");
                     JSONObject now = allJsonObject.getJSONObject("now");
 

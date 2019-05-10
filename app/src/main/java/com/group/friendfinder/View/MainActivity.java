@@ -37,11 +37,13 @@ public class MainActivity extends AppCompatActivity{
         setSupportActionBar(mToolbar);
      //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        SharedPreferences spStudentid = getSharedPreferences("spStudentid",
+                Context.MODE_PRIVATE);
+        String firstname = spStudentid.getString("firstname", "");
+        mToolbar.setTitle("Welcome " + firstname + " to MonashFriendFinder");
+
         initContentFragment();
         initBottomBar();
-
-        
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
