@@ -30,7 +30,8 @@ public class ShowMap extends AppCompatActivity {
     private Toolbar toolbar;
     private BaiduMap mBaiduMap;
     private LocationClient mLocationClient;
-    private int count = 0, mode;
+    private int count = 0, mode, stuid[];
+    private double result[][];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,12 @@ public class ShowMap extends AppCompatActivity {
         Intent intent = getIntent();
         count = intent.getIntExtra("count", 0);
         mode = intent.getIntExtra("mode", 0);
+        stuid = intent.getIntArrayExtra("stuid");
+        result = new double[count][2];
+
+        for(int i=0;i<count;i++){
+            result[i] = intent.getDoubleArrayExtra("ARRAY_INDEX" + i);
+        }
 
 
         toolbar = findViewById(R.id.toolbar);
@@ -79,14 +86,15 @@ public class ShowMap extends AppCompatActivity {
 
         for(int i = 0;i < this.count; i++) {
             //定义Maker坐标点
-            LatLng point = new LatLng(31.227 + i, 121.481 - i);
+           // LatLng point = new LatLng(mlocation.getLocation().get(i).get(0), mlocation.getLocation().get(i).get(1));
+            LatLng point = new LatLng(result[i][0], result[i][1]);
             //构建MarkerOption，用于在地图上添加Marker
             OverlayOptions over_option = new MarkerOptions().position(point).icon(bitmap);
             //在地图上添加Marker，并显示
             Marker marker = (Marker)mBaiduMap.addOverlay(over_option);
             //marker
             Bundle mBundle = new Bundle();
-            mBundle.putInt("id", 30074000 + i);
+            mBundle.putInt("id", stuid[i]);
             marker.setExtraInfo(mBundle);
         }
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {

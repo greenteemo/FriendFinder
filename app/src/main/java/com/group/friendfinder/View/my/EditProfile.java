@@ -22,11 +22,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class EditProfile extends AppCompatActivity {
 
     private EditText et[] = new EditText[12];
-    private enum mET{
+
+    private enum mET {
         profile_edit_first_name,
         profile_edit_surname,
         profile_edit_birthday,
@@ -40,13 +44,16 @@ public class EditProfile extends AppCompatActivity {
         profile_edit_favourite_unit,
         profile_edit_current_job
     }
+
     private Spinner sp[] = new Spinner[3];
+
     private enum mSP {
         profile_edit_gender,
         profile_edit_study_mode,
     }
+
     private Button mbtn1;
-    private String studentid,email,spassword,subscribeData,subscribeTime;
+    private String studentid, smonashEmail, spassword, firstname, surname, dateOfBirth, gender, nationality, nativeLanguage, address, suburb, course, studyMode, job, favorSport, favorMovie, favorUnit, subscribeData, subscribeTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +86,7 @@ public class EditProfile extends AppCompatActivity {
             JSONObject mobj = marray.getJSONObject(0);
 
             studentid = mobj.getString("studentid");
-            email = mobj.getString("smonashEmail");
+            smonashEmail = mobj.getString("smonashEmail");
             spassword = mobj.getString("spassword");
             subscribeData = mobj.getString("subscribeData");
             subscribeTime = mobj.getString("subscribeTime");
@@ -98,56 +105,49 @@ public class EditProfile extends AppCompatActivity {
             et[mET.profile_edit_favourite_movie.ordinal()].setText(mobj.getString("favorMovie"));
             et[mET.profile_edit_favourite_unit.ordinal()].setText(mobj.getString("favorUnit"));
             et[mET.profile_edit_current_job.ordinal()].setText(mobj.getString("job"));
-        }catch (JSONException e){
+        } catch (JSONException e) {
 
         }
 
         mbtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new updateProfileAsync().execute(
-                        studentid,
-                        email,
-                        spassword,
-                        et[mET.profile_edit_first_name.ordinal()].getText().toString(),
-                        et[mET.profile_edit_surname.ordinal()].getText().toString(),
-                        et[mET.profile_edit_birthday.ordinal()].getText().toString(),
-                        String.valueOf(sp[mSP.profile_edit_gender.ordinal()].getSelectedItemPosition()),
-                        et[mET.profile_edit_nationality.ordinal()].getText().toString(),
-                        et[mET.profile_edit_native_language.ordinal()].getText().toString(),
-                        et[mET.profile_edit_address.ordinal()].getText().toString(),
-                        et[mET.profile_edit_suburb.ordinal()].getText().toString(),
-                        et[mET.profile_edit_course.ordinal()].getText().toString(),
-                        String.valueOf(sp[mSP.profile_edit_study_mode.ordinal()].getSelectedItemPosition()),
-                        et[mET.profile_edit_current_job.ordinal()].getText().toString(),
-                        et[mET.profile_edit_favourite_sport.ordinal()].getText().toString(),
-                        et[mET.profile_edit_favourite_movie.ordinal()].getText().toString(),
-                        et[mET.profile_edit_favourite_unit.ordinal()].getText().toString(),
-                        subscribeData,
+                firstname = et[mET.profile_edit_first_name.ordinal()].getText().toString();
+                surname = et[mET.profile_edit_surname.ordinal()].getText().toString();
+                dateOfBirth = et[mET.profile_edit_birthday.ordinal()].getText().toString();
+                gender = String.valueOf(sp[mSP.profile_edit_gender.ordinal()].getSelectedItemPosition());
+                nationality = et[mET.profile_edit_nationality.ordinal()].getText().toString();
+                nativeLanguage = et[mET.profile_edit_native_language.ordinal()].getText().toString();
+                address = et[mET.profile_edit_address.ordinal()].getText().toString();
+                suburb = et[mET.profile_edit_suburb.ordinal()].getText().toString();
+                course = et[mET.profile_edit_course.ordinal()].getText().toString();
+                studyMode = String.valueOf(sp[mSP.profile_edit_study_mode.ordinal()].getSelectedItemPosition());
+                job = et[mET.profile_edit_current_job.ordinal()].getText().toString();
+                favorSport = et[mET.profile_edit_favourite_sport.ordinal()].getText().toString();
+                favorMovie = et[mET.profile_edit_favourite_movie.ordinal()].getText().toString();
+                favorUnit = et[mET.profile_edit_favourite_unit.ordinal()].getText().toString();
+                System.out.println(studentid + "" +
+                        smonashEmail + "" +
+                        spassword + "" +
+                        et[mET.profile_edit_first_name.ordinal()].getText().toString() + "" +
+                        et[mET.profile_edit_surname.ordinal()].getText().toString() + "" +
+                        et[mET.profile_edit_birthday.ordinal()].getText().toString() + "" +
+                        String.valueOf(sp[mSP.profile_edit_gender.ordinal()].getSelectedItemPosition()) + "" +
+                        et[mET.profile_edit_nationality.ordinal()].getText().toString() + "" +
+                        et[mET.profile_edit_native_language.ordinal()].getText().toString() + "" +
+                        et[mET.profile_edit_address.ordinal()].getText().toString() + "" +
+                        et[mET.profile_edit_suburb.ordinal()].getText().toString() + "" +
+                        et[mET.profile_edit_course.ordinal()].getText().toString() + "" +
+                        String.valueOf(sp[mSP.profile_edit_study_mode.ordinal()].getSelectedItemPosition()) + "" +
+                        et[mET.profile_edit_current_job.ordinal()].getText().toString() + "" +
+                        et[mET.profile_edit_favourite_sport.ordinal()].getText().toString() + "" +
+                        et[mET.profile_edit_favourite_movie.ordinal()].getText().toString() + "" +
+                        et[mET.profile_edit_favourite_unit.ordinal()].getText().toString() + "" +
+                        subscribeData + "" +
                         subscribeTime);
-                System.out.println(studentid+""+
-                        email+""+
-                        spassword+""+
-                        et[mET.profile_edit_first_name.ordinal()].getText().toString()+""+
-                        et[mET.profile_edit_surname.ordinal()].getText().toString()+""+
-                        et[mET.profile_edit_birthday.ordinal()].getText().toString()+""+
-                        String.valueOf(sp[mSP.profile_edit_gender.ordinal()].getSelectedItemPosition())+""+
-                        et[mET.profile_edit_nationality.ordinal()].getText().toString()+""+
-                        et[mET.profile_edit_native_language.ordinal()].getText().toString()+""+
-                        et[mET.profile_edit_address.ordinal()].getText().toString()+""+
-                        et[mET.profile_edit_suburb.ordinal()].getText().toString()+""+
-                        et[mET.profile_edit_course.ordinal()].getText().toString()+""+
-                        String.valueOf(sp[mSP.profile_edit_study_mode.ordinal()].getSelectedItemPosition())+""+
-                        et[mET.profile_edit_current_job.ordinal()].getText().toString()+""+
-                        et[mET.profile_edit_favourite_sport.ordinal()].getText().toString()+""+
-                        et[mET.profile_edit_favourite_movie.ordinal()].getText().toString()+""+
-                        et[mET.profile_edit_favourite_unit.ordinal()].getText().toString()+""+
-                        subscribeData+""+
-                        subscribeTime);
-                Toast.makeText(EditProfile.this,"Profile was updated",Toast.LENGTH_LONG);
-                Intent intent = new Intent(EditProfile.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                new updateProfileAsync().execute(studentid, smonashEmail, spassword, firstname, surname, dateOfBirth, gender, nationality, nativeLanguage, address, suburb, course, studyMode, job, favorSport, favorMovie, favorUnit, subscribeData, subscribeTime);
+                if (true) //todo
+                    new EditAsyncTask().execute(Integer.valueOf(studentid));
             }
         });
     }
@@ -161,10 +161,39 @@ public class EditProfile extends AppCompatActivity {
             return "Profile was updated";
         }
 
-        /** The system calls this to perform work in the UI thread and delivers
-         * the result from doInBackground() */
+        /**
+         * The system calls this to perform work in the UI thread and delivers
+         * the result from doInBackground()
+         */
         protected void onPostExecute(String response) {
             System.out.println(response);
         }
+    }
+
+    private class EditAsyncTask extends AsyncTask<Integer, Void, String> {
+
+        @Override
+        protected String doInBackground(Integer... params) {
+            return RestClient.getStudent(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String ret) {
+            super.onPostExecute(ret);
+            System.out.println("thin is get" + ret);
+            if(ret != null){
+                SharedPreferences spUserInfo = getSharedPreferences("spUserInfo",
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor eUserInfo = spUserInfo.edit();
+                eUserInfo.putString("UserInfo", ret);
+                eUserInfo.commit();
+
+                Toast.makeText(EditProfile.this,"Profile was updated successfully",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(EditProfile.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+
     }
 }

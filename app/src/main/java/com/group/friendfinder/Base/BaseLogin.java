@@ -64,13 +64,8 @@ public class BaseLogin extends Activity {
     int second = calendar.get(Calendar.SECOND);
 
 
-    private MapView mMapView = null;
 
-    BaiduMap mBaiduMap;
-
-    public LocationClient mLocationclient;
-
-    private TextView postionTextView;
+    private LocationClient mLocationclient;
 
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -101,7 +96,7 @@ public class BaseLogin extends Activity {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -192,7 +187,7 @@ public class BaseLogin extends Activity {
     }
 
     //    监听器响应值
-    public class  MyLocationListener extends BDAbstractLocationListener {
+    private class  MyLocationListener extends BDAbstractLocationListener {
 
         @Override
         public void onReceiveLocation(BDLocation bdLocation) {
@@ -206,11 +201,13 @@ public class BaseLogin extends Activity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        mLocationclient.stop();
+        super.onDestroy();
+    }
 
-
-
-
-    class LoginAsyncTask extends AsyncTask<String, Void, String> {
+    private class LoginAsyncTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {

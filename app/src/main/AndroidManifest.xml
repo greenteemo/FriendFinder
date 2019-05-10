@@ -39,7 +39,7 @@
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="eztdXBAcq7BGBaG92N20aRil3rymb6Lr" />
+            android:value="djNWAPWGbrjWyL810xQD3Sa9EdLbr5pM" />
 
 
         <activity android:name=".View.home.func.GetMovieInfo" />
