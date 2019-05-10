@@ -146,8 +146,7 @@ public class EditProfile extends AppCompatActivity {
                         subscribeData + "" +
                         subscribeTime);
                 new updateProfileAsync().execute(studentid, smonashEmail, spassword, firstname, surname, dateOfBirth, gender, nationality, nativeLanguage, address, suburb, course, studyMode, job, favorSport, favorMovie, favorUnit, subscribeData, subscribeTime);
-                if (true) //todo
-                    new EditAsyncTask().execute(Integer.valueOf(studentid));
+                new EditAsyncTask().execute(Integer.valueOf(studentid));
             }
         });
     }

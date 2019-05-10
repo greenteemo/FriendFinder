@@ -86,7 +86,7 @@ public class NewFriend extends AppCompatActivity {
 //                SharedPreferences spHttpCode = getSharedPreferences("spHttpCode", Context.MODE_PRIVATE);
 //                String httpcode = spHttpCode.getString("httpcode", "");
 //                System.out.println("----------" + httpcode + "-------");
-//                if(httpcode == "204" || httpcode == "200"){ // todo
+//                if(httpcode == "204" || httpcode == "200"){
 //                    System.out.println("you add a new friend successfully");
 //                    final Toast toast = Toast.makeText(NewFriend.this,"you add a new friend successfully",Toast.LENGTH_LONG);
 //                    toast.show();

@@ -165,6 +165,7 @@ public class SearchResult extends AppCompatActivity {
                     mTextView.setTextColor(getColor(R.color.blue));
                     mlistView.setAdapter(new FriendListAdpter(myArray, SearchResult.this, mode));
                     stuid = new int[count];
+                    final ArrayList<Integer> studentids = new ArrayList<>();
                     for (int i = 0; i < count; i++) {
                         JSONObject mobj = myArray.getJSONObject(i);
                         SharedPreferences spStudentid = getSharedPreferences("spStudentid",
@@ -181,7 +182,14 @@ public class SearchResult extends AppCompatActivity {
                             }
                         }
                         stuid[i] = mobj.getInt("studentid");
+                        studentids.add(stuid[i]);
                     }
+                    mbtn1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new recentLocgAsyncTask().execute(studentids);
+                        }
+                    });
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
