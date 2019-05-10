@@ -127,6 +127,9 @@ public class HomeFragment extends BaseLazyLoadFragment{
         new MyLocationListener();
         urlStr += log + "," + lat;
         new getWeatherAsyncTask().execute(urlStr);
+
+        System.out.println(log);
+        System.out.println(lat);
     }
 
     @Override
@@ -144,31 +147,31 @@ public class HomeFragment extends BaseLazyLoadFragment{
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 switch (position)
                 {
+//                    case 0:
+//                        Intent intent1 = new Intent(getActivity(), exampleActivity.class);
+//                        startActivity(intent1);
+//                        //Toast.makeText(getContext(), "function1_Activity",Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case 1:
+////                        Intent intent = new Intent(getActivity(), function1_Activity().class);
+////                        startActivity(intent);
+//                        Toast.makeText(getContext(), "function1_Activity",Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case 2:
+////                        Intent intent = new Intent(getActivity(), function2_Activity().class);
+////                        startActivity(intent);
+//                        Toast.makeText(getContext(), "to function2_Activity",Toast.LENGTH_SHORT).show();
+//                        break;
                     case 0:
-                        Intent intent1 = new Intent(getActivity(), exampleActivity.class);
-                        startActivity(intent1);
-                        //Toast.makeText(getContext(), "function1_Activity",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-//                        Intent intent = new Intent(getActivity(), function1_Activity().class);
-//                        startActivity(intent);
-                        Toast.makeText(getContext(), "function1_Activity",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-//                        Intent intent = new Intent(getActivity(), function2_Activity().class);
-//                        startActivity(intent);
-                        Toast.makeText(getContext(), "to function2_Activity",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
                         Intent intent = new Intent(getActivity(), GetMovieInfo.class);
                         startActivity(intent);
 //                        Toast.makeText(getContext(), "to function3_Activity",Toast.LENGTH_SHORT).show();
                         break;
-                    case 4:
+                    case 1:
                         Intent intent4 = new Intent(getActivity(), FavorUnitsPie.class);
                         startActivity(intent4);
                         break;
-                    case 5:
+                    case 2:
                         Intent intent5 = new Intent(getActivity(), ChooseDate.class);
                         startActivity(intent5);
                         break;  //windows-x86_64\qemu-system-i386.exe: failed to initialize HAX: Invalid argument
